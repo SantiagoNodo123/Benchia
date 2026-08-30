@@ -1034,11 +1034,60 @@ app.post('/api/google-search-live', async (req, res) => {
       ]
     };
 
+    // 1. Direct Real-Time Serper.dev Google SERP Integration
+    if (process.env.SERPER_API_KEY) {
+      try {
+        const serperRes = await fetch('https://google.serper.dev/search', {
+          method: 'POST',
+          headers: {
+            'X-API-KEY': process.env.SERPER_API_KEY,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            q: query,
+            gl: 'es',
+            hl: 'es',
+            num: 10,
+          }),
+        });
+
+        if (serperRes.ok) {
+          const serperData: any = await serperRes.json();
+          if (serperData && serperData.organic && serperData.organic.length > 0) {
+            const liveResults = serperData.organic.map((item: any, idx: number) => ({
+              rank: item.position || idx + 1,
+              title: item.title,
+              url: item.link,
+              snippet: item.snippet || '',
+              domainAuthority: Math.max(45, 95 - (item.position || idx + 1) * 4),
+              features: item.sitelinks ? ['SiteLinks'] : [],
+            }));
+
+            const keywordOpps = serperData.relatedSearches
+              ? serperData.relatedSearches.map((r: any) => r.query).slice(0, 6)
+              : defaultSerpResults.keywordOpportunities;
+
+            return res.json({
+              query,
+              competitorName: competitorName || 'Competidor Analizado',
+              searchVolume: 'En vivo (Google Search)',
+              difficultyScore: 65,
+              cpcEstimate: '$2.80 - $5.50 USD',
+              results: liveResults,
+              keywordOpportunities: keywordOpps,
+            });
+          }
+        }
+      } catch (serperErr) {
+        console.warn('Serper API live query error, trying Gemini fallback:', serperErr);
+      }
+    }
+
     if (!ai) {
       return res.json(defaultSerpResults);
     }
 
-    // Call Gemini with Google Search Grounding with model fallback
+    // 2. Call Gemini with Google Search Grounding with model fallback
     try {
       const text = await generateWithModelFallback(ai, {
         contents: `Investiga en Google Search la siguiente consulta de mercado y competidor:
