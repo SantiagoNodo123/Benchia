@@ -74,8 +74,8 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="p-2.5 rounded bg-zinc-950 border border-zinc-800 text-xs space-y-1 font-mono shadow-xl">
-          <p className="font-semibold text-zinc-100 font-sans">{label || payload[0]?.name || payload[0]?.payload?.competitor}</p>
+        <div className="p-2.5 rounded bg-slate-50 border border-slate-200 text-xs space-y-1 font-mono shadow-xl">
+          <p className="font-semibold text-slate-900 font-sans">{label || payload[0]?.name || payload[0]?.payload?.competitor}</p>
           {payload.map((item: any, idx: number) => (
             <p key={idx} style={{ color: item.color || '#10b981' }}>
               {item.name}: <span className="font-bold">{item.value}</span>
@@ -107,29 +107,29 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
     <section className="space-y-4 mb-10">
       
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200">
         <div>
           <div className="flex items-center space-x-2">
-            <h2 className="text-base font-semibold text-zinc-100">
+            <h2 className="text-base font-semibold text-slate-900">
               Métricas Cuantitativas & Gráficos de Posicionamiento
             </h2>
-            <span className="px-2 py-0.2 text-[11px] bg-zinc-800 text-zinc-300 border border-zinc-700 rounded font-mono">
+            <span className="px-2 py-0.2 text-[11px] bg-slate-100 text-slate-700 border border-slate-200 rounded font-mono">
               Visual Analytics
             </span>
           </div>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Cuota de mercado, trayectoria proyectada y correlación entre precio y funcionalidad.
           </p>
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex items-center space-x-1 bg-zinc-900 p-1 rounded-lg border border-zinc-800 overflow-x-auto text-xs">
+        <div className="flex items-center space-x-1 bg-slate-50 p-1 rounded-lg border border-slate-200 overflow-x-auto text-xs">
           <button
             onClick={() => setActiveChartTab('share')}
             className={`px-3 py-1 rounded font-medium whitespace-nowrap transition-colors cursor-pointer ${
               activeChartTab === 'share'
-                ? 'bg-zinc-800 text-zinc-100 border border-zinc-700'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-slate-100 text-slate-900 border border-slate-200'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             Cuota de Mercado
@@ -138,8 +138,8 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
             onClick={() => setActiveChartTab('trajectory')}
             className={`px-3 py-1 rounded font-medium whitespace-nowrap transition-colors cursor-pointer ${
               activeChartTab === 'trajectory'
-                ? 'bg-zinc-800 text-zinc-100 border border-zinc-700'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-slate-100 text-slate-900 border border-slate-200'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             Trayectoria (+60d)
@@ -148,8 +148,8 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
             onClick={() => setActiveChartTab('scatter')}
             className={`px-3 py-1 rounded font-medium whitespace-nowrap transition-colors cursor-pointer ${
               activeChartTab === 'scatter'
-                ? 'bg-zinc-800 text-zinc-100 border border-zinc-700'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-slate-100 text-slate-900 border border-slate-200'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             Precio vs Valor
@@ -158,8 +158,8 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
             onClick={() => setActiveChartTab('radar')}
             className={`px-3 py-1 rounded font-medium whitespace-nowrap transition-colors cursor-pointer ${
               activeChartTab === 'radar'
-                ? 'bg-zinc-800 text-zinc-100 border border-zinc-700'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-slate-100 text-slate-900 border border-slate-200'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
             Radar Multiaxial
@@ -174,17 +174,17 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
         {activeChartTab === 'share' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-sm font-semibold text-zinc-100">
+              <h3 className="text-sm font-semibold text-slate-900">
                 Distribución de Cuota de Mercado & Pauta Publicitaria
               </h3>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-slate-500">
                 Participación estimada de ingresos y share of voice en {niche}.
               </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
               {/* Pie Chart */}
-              <div className="h-64 w-full p-2 rounded bg-zinc-950 border border-zinc-800">
+              <div className="h-64 w-full p-2 rounded bg-slate-50 border border-slate-200">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -209,7 +209,7 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
               </div>
 
               {/* Bar comparison */}
-              <div className="h-64 w-full p-2 rounded bg-zinc-950 border border-zinc-800">
+              <div className="h-64 w-full p-2 rounded bg-slate-50 border border-slate-200">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={safeChartData} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
@@ -236,16 +236,16 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h3 className="text-sm font-semibold text-zinc-100">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Evolución Histórica & Demanda Proyectada (+60 Días)
                 </h3>
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-slate-500">
                   Modelo de serie temporal derivado de tendencias de búsqueda y volumen de subastas.
                 </p>
               </div>
             </div>
 
-            <div className="h-72 w-full p-2 rounded bg-zinc-950 border border-zinc-800">
+            <div className="h-72 w-full p-2 rounded bg-slate-50 border border-slate-200">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={safeTrendHistory} margin={{ top: 10, right: 20, left: -15, bottom: 0 }}>
                   <defs>
@@ -282,15 +282,15 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
         {activeChartTab === 'scatter' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-sm font-semibold text-zinc-100">
+              <h3 className="text-sm font-semibold text-slate-900">
                 Matriz de Posicionamiento: Precio vs Sofisticación
               </h3>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-slate-500">
                 Espacios de oportunidad: precio competitivo con alta capacidad de producto.
               </p>
             </div>
 
-            <div className="h-72 w-full p-2 rounded bg-zinc-950 border border-zinc-800">
+            <div className="h-72 w-full p-2 rounded bg-slate-50 border border-slate-200">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#27272a" />
@@ -327,15 +327,15 @@ export const InteractiveDashboards: React.FC<InteractiveDashboardsProps> = ({
         {activeChartTab === 'radar' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-sm font-semibold text-zinc-100">
+              <h3 className="text-sm font-semibold text-slate-900">
                 Evaluación Multidimensional de Competidores
               </h3>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-slate-500">
                 Comparación simultánea en gasto de ads, producto, pricing, SEO y sentimiento.
               </p>
             </div>
 
-            <div className="h-72 w-full p-2 rounded bg-zinc-950 border border-zinc-800">
+            <div className="h-72 w-full p-2 rounded bg-slate-50 border border-slate-200">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={formattedRadarData} margin={{ top: 10, right: 20, bottom: 10, left: 20 }}>
                   <PolarGrid stroke="#27272a" />

@@ -63,38 +63,22 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           
-          {/* Logo & Brand: NODO Tech & Growth */}
+          {/* Clean Typographic Wordmark: NODO Tech & Growth */}
           <div 
             className="flex items-center space-x-3 cursor-pointer select-none group" 
             onClick={() => setActiveTab('overview')}
           >
-            {/* Nodo Brand Logo Asset */}
-            <div className="relative w-9 h-9 rounded-xl bg-slate-950 overflow-hidden flex items-center justify-center shadow-md shadow-indigo-500/10 border border-slate-800 group-hover:scale-105 transition-all">
-              <img 
-                src="/nodo-logo.png" 
-                alt="Nodo Tech & Growth" 
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  // Fallback to SVG orbital logo if image is loading
-                  (e.target as HTMLElement).style.display = 'none';
-                }}
-              />
-              <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-xs pointer-events-none">
-                <span className="font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">nodo</span>
-              </div>
-            </div>
-            
             <div className="flex flex-col">
               <div className="flex items-center space-x-2">
-                <span className="font-extrabold text-lg text-slate-900 tracking-tight leading-none">
-                  nodo
+                <span className="font-extrabold text-2xl text-slate-900 tracking-tight leading-none">
+                  nodo<span className="text-pink-500">.</span>
                 </span>
-                <span className="text-[10px] font-bold text-pink-600 bg-pink-50 border border-pink-200/60 px-1.5 py-0.2 rounded-md">
-                  GROWTH
+                <span className="text-[10px] font-bold text-pink-600 bg-pink-50 border border-pink-200/80 px-2 py-0.5 rounded-full">
+                  Tech & Growth
                 </span>
               </div>
-              <span className="text-[10px] font-semibold text-slate-400 tracking-wide">
-                Tech & Growth Intelligence
+              <span className="text-[10px] font-medium text-slate-400 tracking-wide mt-0.5">
+                Market & Competitive Intelligence
               </span>
             </div>
           </div>
@@ -110,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setActiveTab(tab.id)}
                   className={`relative flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-slate-900 text-white shadow-sm'
+                      ? 'bg-slate-100 text-white shadow-sm'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
                   }`}
                 >
@@ -189,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs whitespace-nowrap transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-slate-900 text-white font-bold'
+                    ? 'bg-slate-100 text-white font-bold'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >

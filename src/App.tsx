@@ -277,7 +277,7 @@ export default function App() {
   const unreadAlertsCount = report?.alerts?.filter((a) => !a.isRead).length || 0;
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-200 flex flex-col justify-between selection:bg-zinc-800 selection:text-white font-sans antialiased">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col justify-between selection:bg-slate-200 selection:text-white font-sans antialiased">
       
       {/* Top Sticky Navigation */}
       <Navbar
@@ -297,10 +297,10 @@ export default function App() {
 
       {/* Live Activity Ticker Bar */}
       {liveTickerBanner && (
-        <div className="bg-zinc-900 border-b border-zinc-800 py-1.5 px-4 text-xs text-zinc-400 flex items-center justify-between">
+        <div className="bg-slate-100 border-b border-slate-200 py-1.5 px-4 text-xs text-slate-500 flex items-center justify-between">
           <div className="max-w-7xl mx-auto w-full flex items-center space-x-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-            <span className="truncate text-zinc-300 font-mono text-[11px]">
+            <span className="truncate text-slate-700 font-mono text-[11px]">
               {liveTickerBanner}
             </span>
           </div>
@@ -524,38 +524,20 @@ export default function App() {
 
         {/* Initial Empty / Welcome State (Ready to Search) */}
         {!report && !isLoading && (
-          <div className="py-10 px-4 max-w-5xl mx-auto text-center space-y-10 animate-fadeIn">
+          <div className="py-12 px-4 max-w-5xl mx-auto text-center space-y-8 animate-fadeIn">
             
-            {/* Nodo Brand Emblem & Orbital Ring Visual */}
-            <div className="relative mx-auto w-28 h-28 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-indigo-200 animate-ping opacity-40" />
-              <div className="absolute inset-2 rounded-full border-2 border-dashed border-pink-300 animate-pulse" />
-              
-              <div className="w-20 h-20 rounded-2xl bg-slate-950 p-2 border-2 border-indigo-500/40 shadow-xl shadow-indigo-500/15 flex items-center justify-center overflow-hidden">
-                <img 
-                  src="/nodo-logo.png" 
-                  alt="Nodo" 
-                  className="w-full h-full object-contain" 
-                  onError={(e) => {
-                    (e.target as HTMLElement).style.display = 'none';
-                  }}
-                />
-                <span className="font-extrabold text-white text-base tracking-tight">nodo</span>
-              </div>
-            </div>
-
-            <div className="space-y-3.5 max-w-2xl mx-auto">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-xs font-bold shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
-                <span>Nodo Intelligence & Benchmark Platform</span>
+            <div className="space-y-4 max-w-3xl mx-auto">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 text-xs font-bold shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-pink-500" />
+                <span>nodo • Tech & Growth Intelligence</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                Auditoría Competitiva & Estrategia de Crecimiento
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Auditoría Competitiva & <span className="text-nodo-gradient">Estrategia de Crecimiento</span>
               </h2>
               
-              <p className="text-sm text-slate-500 max-w-xl mx-auto leading-relaxed font-normal">
-                Analiza en segundos cualquier nicho o competidor. Nodo extrae rankings de Google, anuncios de Meta, desglosa páginas web en vivo y genera tu plan de diferenciación.
+              <p className="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal">
+                Analiza en segundos cualquier nicho o competidor. Nodo rastrea Google Search, anuncios en Meta, extrae páginas web con Firecrawl y estructura tu plan de diferenciación.
               </p>
             </div>
 
@@ -675,10 +657,10 @@ export default function App() {
       />
 
       {/* Clean Footer */}
-      <footer className="border-t border-zinc-800 bg-zinc-950 py-5 px-4 text-xs text-zinc-500">
+      <footer className="border-t border-slate-200 bg-slate-50 py-5 px-4 text-xs text-zinc-500">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
-            <span className="font-semibold text-zinc-300 font-mono">Benchia</span>
+            <span className="font-semibold text-slate-700 font-mono">Benchia</span>
             <span>— Competitive Intelligence & Real-Time Market Radar</span>
           </div>
           <p className="text-zinc-500 font-mono text-[11px]">

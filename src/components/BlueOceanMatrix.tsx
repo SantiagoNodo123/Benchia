@@ -36,17 +36,17 @@ export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
       
       {/* Unclaimed Gaps */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between pb-2 border-b border-zinc-800">
+        <div className="flex items-center justify-between pb-2 border-b border-slate-200">
           <div>
             <div className="flex items-center space-x-2">
-              <h2 className="text-base font-semibold text-zinc-100">
+              <h2 className="text-base font-semibold text-slate-900">
                 Océanos Azules & Oportunidades No Atendidas
               </h2>
-              <span className="px-2 py-0.2 text-[11px] bg-zinc-800 text-zinc-300 border border-zinc-700 rounded font-mono">
+              <span className="px-2 py-0.2 text-[11px] bg-slate-100 text-slate-700 border border-slate-200 rounded font-mono">
                 Ventaja Competitiva
               </span>
             </div>
-            <p className="text-xs text-zinc-400 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5">
               Vacíos estructurales en {niche} donde la competencia es débil o inexistente.
             </p>
           </div>
@@ -64,19 +64,19 @@ export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
                   <span>Oportunidad 0{idx + 1}</span>
                 </div>
 
-                <h3 className="text-sm font-semibold text-zinc-100 mb-2 leading-snug">
+                <h3 className="text-sm font-semibold text-slate-900 mb-2 leading-snug">
                   {ocean.gap}
                 </h3>
 
                 <div className="space-y-2 text-xs mb-3">
-                  <div className="p-2 rounded bg-zinc-950 border border-zinc-800">
-                    <span className="text-zinc-500 font-mono text-[10px] uppercase block mb-0.5">
+                  <div className="p-2 rounded bg-slate-50 border border-slate-200">
+                    <span className="text-slate-400 font-mono text-[10px] uppercase block mb-0.5">
                       Razón de abandono de los líderes:
                     </span>
-                    <span className="text-zinc-300 leading-relaxed">{ocean.whyMissing}</span>
+                    <span className="text-slate-700 leading-relaxed">{ocean.whyMissing}</span>
                   </div>
 
-                  <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-zinc-200">
+                  <div className="p-2 rounded bg-slate-50 border border-slate-200 text-slate-800">
                     <span className="text-emerald-400 font-mono text-[10px] uppercase block mb-0.5 font-semibold">
                       Cómo capturar este segmento:
                     </span>
@@ -85,9 +85,9 @@ export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-400">
+              <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
                 <span className="font-mono">Barrera de entrada: Baja</span>
-                <ArrowRight className="w-3.5 h-3.5 text-zinc-500" />
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
               </div>
             </div>
           ))}
@@ -97,10 +97,10 @@ export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
       {/* Strategic Playbook */}
       <div className="benchia-card p-5 space-y-3">
         <div>
-          <h3 className="text-sm font-semibold text-zinc-100">
+          <h3 className="text-sm font-semibold text-slate-900">
             Hoja de Ruta Táctica de Entrada al Mercado (30-60 Días)
           </h3>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Secuencia estructurada de captura de clientes y posicionamiento.
           </p>
         </div>
@@ -109,11 +109,11 @@ export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
           {safePlaybook.map((play, idx) => (
             <div
               key={idx}
-              className="p-3.5 rounded bg-zinc-950 border border-zinc-800 flex flex-col justify-between space-y-2"
+              className="p-3.5 rounded bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-2"
             >
               <div>
-                <div className="flex items-center justify-between mb-1.5 pb-1.5 border-b border-zinc-800/80">
-                  <span className="text-xs font-semibold text-zinc-200 font-mono">
+                <div className="flex items-center justify-between mb-1.5 pb-1.5 border-b border-slate-200">
+                  <span className="text-xs font-semibold text-slate-800 font-mono">
                     {play.phase}
                   </span>
                   <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono">
@@ -121,14 +121,14 @@ export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
                   </span>
                 </div>
 
-                <p className="text-xs text-zinc-300 leading-relaxed font-normal">
+                <p className="text-xs text-slate-700 leading-relaxed font-normal">
                   {play.action}
                 </p>
               </div>
 
-              <div className="text-[11px] text-zinc-400 pt-2 border-t border-zinc-800/80 flex items-center space-x-1">
-                <Target className="w-3 h-3 text-zinc-500" />
-                <span>Objetivo: <strong className="text-zinc-200 font-normal">{play.targetCompetitor}</strong></span>
+              <div className="text-[11px] text-slate-500 pt-2 border-t border-slate-200 flex items-center space-x-1">
+                <Target className="w-3 h-3 text-slate-400" />
+                <span>Objetivo: <strong className="text-slate-800 font-normal">{play.targetCompetitor}</strong></span>
               </div>
             </div>
           ))}

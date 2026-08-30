@@ -75,17 +75,17 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
     <section className="space-y-4 mb-10">
       
       {/* Header & Controls Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-zinc-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200">
         <div>
           <div className="flex items-center space-x-2">
-            <h2 className="text-base font-semibold text-zinc-100">
+            <h2 className="text-base font-semibold text-slate-900">
               Directorio de Competidores del Nicho
             </h2>
-            <span className="px-2 py-0.2 text-[11px] bg-zinc-800 text-zinc-300 border border-zinc-700 rounded font-mono">
+            <span className="px-2 py-0.2 text-[11px] bg-slate-100 text-slate-700 border border-slate-200 rounded font-mono">
               {competitors.length} entidades
             </span>
           </div>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Métricas de penetración, volumen publicitario, stacks y flancos vulnerables.
           </p>
         </div>
@@ -96,7 +96,7 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
             <button
               onClick={handleTriggerCompare}
               disabled={selectedForComparison.length !== 2}
-              className="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 text-xs font-medium flex items-center space-x-1.5 transition-colors disabled:opacity-50 cursor-pointer"
+              className="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 text-xs font-medium flex items-center space-x-1.5 transition-colors disabled:opacity-50 cursor-pointer"
             >
               <ArrowRightLeft className="w-3.5 h-3.5 text-emerald-400" />
               <span>Comparar 2 ({selectedForComparison.length}/2)</span>
@@ -104,20 +104,20 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
           )}
 
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-500" />
+            <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Filtrar competidor..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-7 pr-2.5 py-1 text-xs rounded bg-zinc-900 border border-zinc-700 text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 font-normal"
+              className="pl-7 pr-2.5 py-1 text-xs rounded bg-slate-50 border border-slate-200 text-slate-800 placeholder-zinc-500 focus:outline-none focus:border-zinc-500 font-normal"
             />
           </div>
 
           <select
             value={sortBy}
             onChange={(e: any) => setSortBy(e.target.value)}
-            className="text-xs bg-zinc-900 border border-zinc-700 text-zinc-300 rounded px-2.5 py-1 outline-none focus:border-zinc-500 cursor-pointer"
+            className="text-xs bg-slate-50 border border-slate-200 text-slate-700 rounded px-2.5 py-1 outline-none focus:border-zinc-500 cursor-pointer"
           >
             <option value="marketShare">Por Cuota de Mercado</option>
             <option value="adVelocity">Por Velocidad de Ads</option>
@@ -134,7 +134,7 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
             <div
               key={comp.id}
               className={`benchia-card benchia-card-hover p-5 flex flex-col justify-between transition-all ${
-                isSelected ? 'border-emerald-500/80 ring-1 ring-emerald-500/40 bg-zinc-900/60' : ''
+                isSelected ? 'border-emerald-500/80 ring-1 ring-emerald-500/40 bg-slate-50' : ''
               }`}
             >
               <div>
@@ -146,40 +146,40 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
                         onClick={() => toggleSelectForCompare(comp.id)}
                         title="Seleccionar para comparar cara a cara"
                         className={`w-4 h-4 rounded border flex items-center justify-center text-[10px] cursor-pointer transition-colors ${
-                          isSelected ? 'bg-emerald-500 border-emerald-500 text-zinc-950 font-bold' : 'border-zinc-700 bg-zinc-950 text-transparent hover:border-zinc-500'
+                          isSelected ? 'bg-emerald-500 border-emerald-500 text-zinc-950 font-bold' : 'border-slate-200 bg-slate-50 text-transparent hover:border-zinc-500'
                         }`}
                       >
                         ✓
                       </button>
-                      <h3 className="text-base font-semibold text-zinc-100">
+                      <h3 className="text-base font-semibold text-slate-900">
                         {comp.name}
                       </h3>
                       <a
                         href={`https://${comp.website}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[11px] text-zinc-400 hover:text-zinc-200 flex items-center space-x-0.5 font-mono"
+                        className="text-[11px] text-slate-500 hover:text-slate-800 flex items-center space-x-0.5 font-mono"
                       >
                         <span>{comp.website}</span>
-                        <ExternalLink className="w-2.5 h-2.5 ml-0.5 text-zinc-500" />
+                        <ExternalLink className="w-2.5 h-2.5 ml-0.5 text-slate-400" />
                       </a>
                     </div>
-                    <p className="text-xs text-zinc-400 mt-1 italic">
+                    <p className="text-xs text-slate-500 mt-1 italic">
                       "{comp.tagline}"
                     </p>
                   </div>
 
                   {/* Market Share Badge */}
                   <div className="text-right">
-                    <div className="text-[10px] text-zinc-500 font-medium uppercase tracking-wider">Cuota</div>
-                    <div className="text-base font-bold text-zinc-100 font-mono">
+                    <div className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Cuota</div>
+                    <div className="text-base font-bold text-slate-900 font-mono">
                       {comp.marketSharePercent}%
                     </div>
                   </div>
                 </div>
 
                 {/* Market Share Progress Line */}
-                <div className="w-full bg-zinc-950 h-1 rounded-full overflow-hidden mb-3 border border-zinc-800">
+                <div className="w-full bg-slate-50 h-1 rounded-full overflow-hidden mb-3 border border-slate-200">
                   <div
                     className="bg-emerald-500 h-full rounded-full"
                     style={{ width: `${comp.marketSharePercent}%` }}
@@ -187,21 +187,21 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
                 </div>
 
                 {/* Core Specs Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-2.5 rounded bg-zinc-950 border border-zinc-800/80 text-xs mb-3 font-mono">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-2.5 rounded bg-slate-50 border border-slate-200 text-xs mb-3 font-mono">
                   <div>
-                    <span className="text-zinc-500 block text-[9px] uppercase">Tráfico Est.</span>
-                    <span className="font-medium text-zinc-200">{comp.monthlyTrafficEst}</span>
+                    <span className="text-slate-400 block text-[9px] uppercase">Tráfico Est.</span>
+                    <span className="font-medium text-slate-800">{comp.monthlyTrafficEst}</span>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block text-[9px] uppercase">Ticket Prom.</span>
+                    <span className="text-slate-400 block text-[9px] uppercase">Ticket Prom.</span>
                     <span className="font-medium text-emerald-400">{comp.avgPricePoint}</span>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block text-[9px] uppercase">Meta Ads</span>
-                    <span className="font-medium text-zinc-300">{comp.metaAdActiveCount} activos</span>
+                    <span className="text-slate-400 block text-[9px] uppercase">Meta Ads</span>
+                    <span className="font-medium text-slate-700">{comp.metaAdActiveCount} activos</span>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block text-[9px] uppercase">Velocidad</span>
+                    <span className="text-slate-400 block text-[9px] uppercase">Velocidad</span>
                     <span className="font-medium text-amber-400">{comp.adVelocityScore}/100</span>
                   </div>
                 </div>
@@ -209,28 +209,28 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
                 {/* Positioning & ICP */}
                 <div className="space-y-1.5 mb-3 text-xs">
                   <div>
-                    <span className="text-zinc-400 font-medium">Posicionamiento: </span>
-                    <span className="text-zinc-300">{comp.positioning}</span>
+                    <span className="text-slate-500 font-medium">Posicionamiento: </span>
+                    <span className="text-slate-700">{comp.positioning}</span>
                   </div>
                   <div>
-                    <span className="text-zinc-400 font-medium">Público Objetivo: </span>
-                    <span className="text-zinc-300">{comp.targetAudience}</span>
+                    <span className="text-slate-500 font-medium">Público Objetivo: </span>
+                    <span className="text-slate-700">{comp.targetAudience}</span>
                   </div>
                   <div>
-                    <span className="text-zinc-400 font-medium">Monetización: </span>
-                    <span className="text-zinc-300">{comp.pricingModel}</span>
+                    <span className="text-slate-500 font-medium">Monetización: </span>
+                    <span className="text-slate-700">{comp.pricingModel}</span>
                   </div>
                 </div>
 
                 {/* Strengths & Vulnerabilities */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3 text-xs">
                   {/* Strengths */}
-                  <div className="p-2.5 rounded bg-zinc-950 border border-zinc-800">
+                  <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
                     <div className="flex items-center space-x-1 text-emerald-400 text-[10px] font-semibold uppercase tracking-wider mb-1">
                       <ShieldCheck className="w-3 h-3" />
                       <span>Fortalezas Clave</span>
                     </div>
-                    <ul className="space-y-0.5 text-zinc-300 text-[11px]">
+                    <ul className="space-y-0.5 text-slate-700 text-[11px]">
                       {comp.strengths.slice(0, 3).map((st, i) => (
                         <li key={i} className="flex items-start">
                           <span className="text-emerald-500 mr-1">•</span>
@@ -241,12 +241,12 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
                   </div>
 
                   {/* Vulnerabilities */}
-                  <div className="p-2.5 rounded bg-zinc-950 border border-zinc-800">
+                  <div className="p-2.5 rounded bg-slate-50 border border-slate-200">
                     <div className="flex items-center space-x-1 text-rose-400 text-[10px] font-semibold uppercase tracking-wider mb-1">
                       <AlertCircle className="w-3 h-3" />
                       <span>Vulnerabilidades</span>
                     </div>
-                    <ul className="space-y-0.5 text-zinc-300 text-[11px]">
+                    <ul className="space-y-0.5 text-slate-700 text-[11px]">
                       {comp.vulnerabilities.slice(0, 3).map((vuln, i) => (
                         <li key={i} className="flex items-start">
                           <span className="text-rose-400 mr-1">•</span>
@@ -259,11 +259,11 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
 
                 {/* Tech Stack Pills */}
                 <div className="flex flex-wrap items-center gap-1 mb-3">
-                  <span className="text-[10px] uppercase font-medium text-zinc-500 mr-1">Stack:</span>
+                  <span className="text-[10px] uppercase font-medium text-slate-400 mr-1">Stack:</span>
                   {comp.techStack.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 border border-zinc-800 font-mono"
+                      className="text-[10px] px-1.5 py-0.2 rounded bg-slate-50 text-slate-500 border border-slate-200 font-mono"
                     >
                       {tech}
                     </span>
@@ -271,27 +271,27 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
                 </div>
 
                 {/* Recent Move Alert */}
-                <div className="p-2.5 rounded bg-zinc-950 border border-zinc-800 text-xs flex items-start space-x-2 mb-3">
+                <div className="p-2.5 rounded bg-slate-50 border border-slate-200 text-xs flex items-start space-x-2 mb-3">
                   <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-zinc-500 text-[10px] uppercase font-medium block">Movimiento Estratégico Reciente</span>
-                    <span className="text-zinc-300 text-[11px]">{comp.recentStrategicMove}</span>
+                    <span className="text-slate-400 text-[10px] uppercase font-medium block">Movimiento Estratégico Reciente</span>
+                    <span className="text-slate-700 text-[11px]">{comp.recentStrategicMove}</span>
                   </div>
                 </div>
               </div>
 
               {/* Bottom Action Bar */}
-              <div className="pt-3 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div className="pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
                 <a
                   href={`https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&q=${encodeURIComponent(
                     comp.name + ' ' + niche
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-zinc-400 hover:text-zinc-200 flex items-center space-x-1 font-medium transition-colors"
+                  className="text-slate-500 hover:text-slate-800 flex items-center space-x-1 font-medium transition-colors"
                 >
                   <span>Meta Library</span>
-                  <ExternalLink className="w-3 h-3 text-zinc-500" />
+                  <ExternalLink className="w-3 h-3 text-slate-400" />
                 </a>
 
                 {/* Action Buttons */}
@@ -306,7 +306,7 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
 
                   <button
                     onClick={() => onGenerateCounterStrategy(comp.name, comp.recentStrategicMove)}
-                    className="px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-medium text-xs flex items-center space-x-1.5 border border-zinc-700 transition-colors cursor-pointer"
+                    className="px-3 py-1.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-900 font-medium text-xs flex items-center space-x-1.5 border border-slate-200 transition-colors cursor-pointer"
                   >
                     <Zap className="w-3 h-3 text-amber-400" />
                     <span>Contra-Campaña</span>
