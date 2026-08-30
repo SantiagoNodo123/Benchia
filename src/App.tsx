@@ -30,7 +30,7 @@ import {
 import { generateClientMarketData } from './utils/fallbackGenerator';
 
 export default function App() {
-  const [currentNiche, setCurrentNiche] = useState<string>('SaaS CRM para Clínicas de Salud');
+  const [currentNiche, setCurrentNiche] = useState<string>('');
   const [report, setReport] = useState<MarketResearchReport | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [scanningStep, setScanningStep] = useState<number>(1);
@@ -43,7 +43,7 @@ export default function App() {
   const [isAutoRefreshActive, setIsAutoRefreshActive] = useState<boolean>(true);
   const [refreshInterval, setRefreshInterval] = useState<number>(30);
   const [liveTickerBanner, setLiveTickerBanner] = useState<string | null>(
-    'Monitor de mercado activo: Rastreando Meta Ad Library, Google Ads, Serper y Firecrawl en tiempo real'
+    'Radar de Mercado en Vivo: Conectado a Google SERP (Serper), Web Crawler (Firecrawl), Meta Ads y Gemini AI'
   );
 
   // Modals & Drawers
@@ -63,11 +63,6 @@ export default function App() {
   const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
 
   const pollingTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Initial scan on mount
-  useEffect(() => {
-    handleSearchNiche('SaaS CRM para Clínicas de Salud');
-  }, []);
 
   // Set default comparison once competitors are available
   useEffect(() => {
@@ -522,6 +517,73 @@ export default function App() {
                 }}
               />
             )}
+
+          </div>
+        )}
+
+        {/* Initial Empty / Welcome State (Ready to Search) */}
+        {!report && !isLoading && (
+          <div className="py-12 px-4 max-w-4xl mx-auto text-center space-y-8 animate-fadeIn">
+            
+            <div className="space-y-3">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span>Radar en tiempo real listo para escanear</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 tracking-tight">
+                Espionaje Competitivo, Anuncios & Oportunidades de Mercado
+              </h2>
+              
+              <p className="text-sm text-zinc-400 max-w-2xl mx-auto leading-relaxed font-normal">
+                Ingresa cualquier nicho o industria en la barra superior para activar la búsqueda profunda en Google SERP, biblioteca de anuncios de Meta y auditoría web en vivo.
+              </p>
+            </div>
+
+            {/* 4 Feature Value Pillars */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left">
+              
+              <div className="benchia-card p-4 space-y-2">
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 w-fit text-emerald-400 font-mono text-xs">
+                  01 • SERP
+                </div>
+                <h4 className="text-xs font-semibold text-zinc-200">Google Search en Vivo</h4>
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Extracción de rankings orgánicos, volúmenes de búsqueda e intención de compra con Serper API.
+                </p>
+              </div>
+
+              <div className="benchia-card p-4 space-y-2">
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 w-fit text-orange-400 font-mono text-xs">
+                  02 • Firecrawl
+                </div>
+                <h4 className="text-xs font-semibold text-zinc-200">Auditoría Web Profunda</h4>
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Scraping en tiempo real del sitio web de competidores para extraer precios, copy y ganchos.
+                </p>
+              </div>
+
+              <div className="benchia-card p-4 space-y-2">
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 w-fit text-sky-400 font-mono text-xs">
+                  03 • Ads Radar
+                </div>
+                <h4 className="text-xs font-semibold text-zinc-200">Meta & Google Ads</h4>
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Detección de creativos activos en Meta Ad Library y pujas de subasta en Google Ads.
+                </p>
+              </div>
+
+              <div className="benchia-card p-4 space-y-2">
+                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 w-fit text-purple-400 font-mono text-xs">
+                  04 • AI Playbook
+                </div>
+                <h4 className="text-xs font-semibold text-zinc-200">Estrategia & Battlecards</h4>
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Comparativas Head-to-Head, identificación de océanos azules y generación de contra-campañas.
+                </p>
+              </div>
+
+            </div>
 
           </div>
         )}
