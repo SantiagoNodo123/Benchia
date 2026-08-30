@@ -526,71 +526,79 @@ export default function App() {
         {!report && !isLoading && (
           <div className="py-10 px-4 max-w-5xl mx-auto text-center space-y-10 animate-fadeIn">
             
-            {/* Animated Radar Focal Node */}
-            <div className="relative mx-auto w-32 h-32 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-sky-500/20 animate-ping opacity-30" />
-              <div className="absolute inset-2 rounded-full border border-indigo-500/30 animate-pulse" />
-              <div className="absolute inset-6 rounded-full border border-sky-400/40" />
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-sky-950 border border-sky-500/40 flex items-center justify-center shadow-xl shadow-sky-500/20">
-                <Radar className="w-8 h-8 text-sky-400 animate-pulse-slow" />
+            {/* Nodo Brand Emblem & Orbital Ring Visual */}
+            <div className="relative mx-auto w-28 h-28 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full border border-indigo-200 animate-ping opacity-40" />
+              <div className="absolute inset-2 rounded-full border-2 border-dashed border-pink-300 animate-pulse" />
+              
+              <div className="w-20 h-20 rounded-2xl bg-slate-950 p-2 border-2 border-indigo-500/40 shadow-xl shadow-indigo-500/15 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/nodo-logo.png" 
+                  alt="Nodo" 
+                  className="w-full h-full object-contain" 
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+                <span className="font-extrabold text-white text-base tracking-tight">nodo</span>
               </div>
             </div>
 
             <div className="space-y-3.5 max-w-2xl mx-auto">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-slate-900/80 border border-sky-500/30 text-sky-300 text-xs font-mono shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>Radar Multi-API Listo para Escanear</span>
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-xs font-bold shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
+                <span>Nodo Intelligence & Benchmark Platform</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-                Espionaje Competitivo & Benchmark de Mercado
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                Auditoría Competitiva & Estrategia de Crecimiento
               </h2>
               
-              <p className="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed font-normal">
-                Escribe cualquier industria o producto en la barra superior. Benchia consultará Google Search, extraerá páginas en vivo con Firecrawl y generará tu estrategia en segundos.
+              <p className="text-sm text-slate-500 max-w-xl mx-auto leading-relaxed font-normal">
+                Analiza en segundos cualquier nicho o competidor. Nodo extrae rankings de Google, anuncios de Meta, desglosa páginas web en vivo y genera tu plan de diferenciación.
               </p>
             </div>
 
             {/* 4 Feature Value Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-left">
               
-              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group">
-                <div className="p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30 w-fit text-emerald-400 font-mono text-xs font-bold shadow-sm shadow-emerald-500/10 group-hover:scale-105 transition-transform">
-                  01 • SERP GOOGLE
+              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group bg-white">
+                <div className="p-2 rounded-xl bg-indigo-50 border border-indigo-100 w-fit text-indigo-600 font-bold text-xs shadow-2xs group-hover:scale-105 transition-transform">
+                  01 • GOOGLE SEARCH
                 </div>
-                <h4 className="text-xs font-bold text-white tracking-tight">Google Search en Vivo</h4>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Extracción de rankings orgánicos, volúmenes de búsqueda e intención de compra con Serper API.
+                <h4 className="text-xs font-bold text-slate-900 tracking-tight">Posicionamiento & SERP</h4>
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  Ranking orgánico real, volumen mensual de búsquedas e intención de compra con Serper API.
                 </p>
               </div>
 
-              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group">
-                <div className="p-2 rounded-xl bg-amber-950/40 border border-amber-500/30 w-fit text-amber-400 font-mono text-xs font-bold shadow-sm shadow-amber-500/10 group-hover:scale-105 transition-transform">
-                  02 • FIRECRAWL
+              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group bg-white">
+                <div className="p-2 rounded-xl bg-pink-50 border border-pink-100 w-fit text-pink-600 font-bold text-xs shadow-2xs group-hover:scale-105 transition-transform">
+                  02 • AUDITORÍA WEB
                 </div>
-                <h4 className="text-xs font-bold text-white tracking-tight">Auditoría Web Profunda</h4>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Scraping en tiempo real del sitio web de competidores para extraer precios, copy y ganchos.
+                <h4 className="text-xs font-bold text-slate-900 tracking-tight">Despiece de Sitios Web</h4>
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  Scraping en tiempo real con Firecrawl para extraer precios, claims y vulnerabilidades del competidor.
                 </p>
               </div>
 
-              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group">
-                <div className="p-2 rounded-xl bg-sky-950/40 border border-sky-500/30 w-fit text-sky-400 font-mono text-xs font-bold shadow-sm shadow-sky-500/10 group-hover:scale-105 transition-transform">
-                  03 • ADS RADAR
+              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group bg-white">
+                <div className="p-2 rounded-xl bg-purple-50 border border-purple-100 w-fit text-purple-600 font-bold text-xs shadow-2xs group-hover:scale-105 transition-transform">
+                  03 • PUBLICIDAD ACTIVA
                 </div>
-                <h4 className="text-xs font-bold text-white tracking-tight">Meta & Google Ads</h4>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Detección de creativos activos en Meta Ad Library y pujas de subasta en Google Ads.
+                <h4 className="text-xs font-bold text-slate-900 tracking-tight">Meta & Google Ads</h4>
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  Detección de creativos activos, ganchos de conversión y estimación de inversión por canal.
                 </p>
               </div>
 
-              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group">
-                <div className="p-2 rounded-xl bg-purple-950/40 border border-purple-500/30 w-fit text-purple-400 font-mono text-xs font-bold shadow-sm shadow-purple-500/10 group-hover:scale-105 transition-transform">
-                  04 • AI PLAYBOOK
+              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group bg-white">
+                <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-100 w-fit text-emerald-600 font-bold text-xs shadow-2xs group-hover:scale-105 transition-transform">
+                  04 • PLAYBOOK NODO
                 </div>
-                <h4 className="text-xs font-bold text-white tracking-tight">Estrategia & Battlecards</h4>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
-                  Comparativas Head-to-Head, identificación de océanos azules y generación de contra-campañas.
+                <h4 className="text-xs font-bold text-slate-900 tracking-tight">Estrategia & Crecimiento</h4>
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  Comparativas Head-to-Head, identificación de océanos azules y planes de ataque tácticos.
                 </p>
               </div>
 
@@ -598,7 +606,7 @@ export default function App() {
 
             {/* Quick-Launch Suggestions */}
             <div className="pt-2">
-              <span className="text-xs text-slate-400 font-medium block mb-2.5">O prueba haciendo clic en una de estas sugerencias:</span>
+              <span className="text-xs text-slate-500 font-bold block mb-2.5">O explora uno de estos sectores frecuentes:</span>
               <div className="flex flex-wrap items-center justify-center gap-2">
                 {[
                   'Agencias de Marketing Digital',
@@ -609,7 +617,7 @@ export default function App() {
                   <button
                     key={i}
                     onClick={() => handleSearchNiche(sugg)}
-                    className="px-3.5 py-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-500/40 text-slate-300 hover:text-white text-xs font-semibold transition-all cursor-pointer shadow-sm hover:scale-105"
+                    className="px-3.5 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-slate-300/80 hover:border-indigo-400 text-slate-700 hover:text-slate-900 text-xs font-bold transition-all cursor-pointer shadow-2xs hover:scale-105"
                   >
                     ⚡ {sugg}
                   </button>
@@ -622,14 +630,14 @@ export default function App() {
 
       </main>
 
-      {/* Floating Copilot Trigger */}
+      {/* Floating Nodo Copilot Trigger */}
       {!isChatDrawerOpen && (
         <button
           onClick={() => setIsChatDrawerOpen(true)}
-          className="fixed bottom-5 right-5 z-40 px-3.5 py-2.5 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-xs shadow-lg flex items-center space-x-2 transition-transform hover:scale-105 cursor-pointer"
+          className="fixed bottom-5 right-5 z-40 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white font-bold text-xs shadow-lg shadow-indigo-500/25 flex items-center space-x-2 transition-transform hover:scale-105 cursor-pointer"
         >
-          <Bot className="w-4 h-4 text-zinc-900" />
-          <span>Benchia Copilot</span>
+          <Bot className="w-4 h-4" />
+          <span>Nodo Copilot</span>
         </button>
       )}
 

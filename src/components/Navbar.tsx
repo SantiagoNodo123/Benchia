@@ -59,33 +59,48 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#07090e]/85 backdrop-blur-xl border-b border-slate-800/80 shadow-lg shadow-black/40">
+    <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-xl border-b border-slate-200/80 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           
-          {/* Logo & Brand */}
+          {/* Logo & Brand: NODO Tech & Growth */}
           <div 
             className="flex items-center space-x-3 cursor-pointer select-none group" 
             onClick={() => setActiveTab('overview')}
           >
-            <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-slate-900 to-slate-950 border border-sky-500/30 flex items-center justify-center shadow-md shadow-sky-500/10 group-hover:border-sky-400/60 group-hover:shadow-sky-500/25 transition-all">
-              <Radar className="w-4.5 h-4.5 text-sky-400 group-hover:text-sky-300 transition-colors animate-pulse-slow" />
-              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#07090e] animate-ping" />
+            {/* Nodo Brand Logo Asset */}
+            <div className="relative w-9 h-9 rounded-xl bg-slate-950 overflow-hidden flex items-center justify-center shadow-md shadow-indigo-500/10 border border-slate-800 group-hover:scale-105 transition-all">
+              <img 
+                src="/nodo-logo.png" 
+                alt="Nodo Tech & Growth" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  // Fallback to SVG orbital logo if image is loading
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+              <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-xs pointer-events-none">
+                <span className="font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">nodo</span>
+              </div>
             </div>
-            <div>
+            
+            <div className="flex flex-col">
               <div className="flex items-center space-x-2">
-                <span className="font-bold text-base bg-gradient-to-r from-white via-slate-100 to-sky-300 bg-clip-text text-transparent tracking-tight">
-                  Benchia
+                <span className="font-extrabold text-lg text-slate-900 tracking-tight leading-none">
+                  nodo
                 </span>
-                <span className="text-[10px] font-mono font-medium text-sky-400/90 border border-sky-500/20 bg-sky-950/40 px-1.5 py-0.5 rounded-md backdrop-blur-sm">
-                  PRO AI
+                <span className="text-[10px] font-bold text-pink-600 bg-pink-50 border border-pink-200/60 px-1.5 py-0.2 rounded-md">
+                  GROWTH
                 </span>
               </div>
+              <span className="text-[10px] font-semibold text-slate-400 tracking-wide">
+                Tech & Growth Intelligence
+              </span>
             </div>
           </div>
 
           {/* Desktop Navigation Tabs */}
-          <nav className="hidden xl:flex items-center space-x-1 bg-slate-900/70 p-1 rounded-xl border border-slate-800/80 backdrop-blur-md shadow-inner">
+          <nav className="hidden xl:flex items-center space-x-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/90 shadow-inner">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -93,21 +108,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`relative flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  className={`relative flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-gradient-to-b from-slate-800 to-slate-850 text-white shadow-sm border border-sky-500/30 shadow-sky-500/10'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                      ? 'bg-slate-900 text-white shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-sky-400' : 'text-slate-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-pink-400' : 'text-slate-400'}`} />
                   <span>{tab.label}</span>
                   {Boolean(tab.badge && tab.badge > 0) && (
-                    <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                    <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold bg-pink-500 text-white">
                       {tab.badge}
                     </span>
                   )}
                   {isActive && (
-                    <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-sky-400 to-indigo-400 rounded-full" />
+                    <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full" />
                   )}
                 </button>
               );
@@ -121,13 +136,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onToggleAutoRefresh}
               title={`Monitoreo en Vivo: ${isAutoRefreshActive ? 'Activo' : 'Pausado'}`}
-              className={`hidden sm:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
+              className={`hidden sm:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
                 isAutoRefreshActive
-                  ? 'border-emerald-500/30 bg-emerald-950/30 text-emerald-300 hover:bg-emerald-950/50'
-                  : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-slate-200'
+                  ? 'border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
+                  : 'border-slate-200 bg-slate-100 text-slate-500 hover:text-slate-700'
               }`}
             >
-              <Radio className={`w-3 h-3 ${isAutoRefreshActive ? 'text-emerald-400 animate-pulse' : 'text-slate-500'}`} />
+              <Radio className={`w-3 h-3 ${isAutoRefreshActive ? 'text-emerald-500 animate-pulse' : 'text-slate-400'}`} />
               <span className="font-mono text-[11px]">{isAutoRefreshActive ? 'LIVE' : 'PAUSED'}</span>
             </button>
 
@@ -136,25 +151,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onManualRefresh}
               disabled={isLoading || !currentNiche}
               title="Actualizar datos del radar"
-              className="p-2 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 hover:text-white transition-colors disabled:opacity-40 cursor-pointer"
+              className="p-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 transition-colors disabled:opacity-40 cursor-pointer shadow-xs"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-sky-400' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-indigo-600' : ''}`} />
             </button>
 
             {/* Copilot Chat Trigger */}
             <button
               onClick={onOpenChat}
-              className="hidden md:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-indigo-500/30 bg-indigo-950/30 hover:bg-indigo-900/40 text-indigo-200 text-xs font-semibold transition-all cursor-pointer"
+              className="hidden md:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition-all cursor-pointer"
             >
-              <MessageSquare className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Copilot</span>
+              <MessageSquare className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Nodo Copilot</span>
             </button>
 
             {/* Export Report */}
             <button
               onClick={onExportReport}
               disabled={!currentNiche}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-sky-500/20 transition-all disabled:opacity-40 cursor-pointer"
+              className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white text-xs font-bold shadow-md shadow-indigo-500/20 transition-all disabled:opacity-40 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Exportar</span>
@@ -164,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Secondary tab row for medium/small screens */}
-        <div className="xl:hidden flex items-center space-x-1 overflow-x-auto py-2 border-t border-slate-800/80 no-scrollbar">
+        <div className="xl:hidden flex items-center space-x-1 overflow-x-auto py-2 border-t border-slate-200/80 no-scrollbar">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -174,14 +189,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs whitespace-nowrap transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-slate-800 text-white font-medium border border-sky-500/30'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'bg-slate-900 text-white font-bold'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <Icon className={`w-3 h-3 ${isActive ? 'text-sky-400' : 'text-slate-400'}`} />
+                <Icon className={`w-3 h-3 ${isActive ? 'text-pink-400' : 'text-slate-400'}`} />
                 <span>{tab.label}</span>
                 {Boolean(tab.badge && tab.badge > 0) && (
-                  <span className="px-1 py-0.2 text-[9px] bg-rose-500/20 text-rose-300 rounded font-mono">
+                  <span className="px-1 py-0.2 text-[9px] bg-pink-500 text-white rounded font-mono">
                     {tab.badge}
                   </span>
                 )}
