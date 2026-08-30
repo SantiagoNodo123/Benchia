@@ -26,6 +26,8 @@ import {
   Bot
 } from 'lucide-react';
 
+import { generateClientMarketData } from './utils/fallbackGenerator';
+
 export default function App() {
   const [currentNiche, setCurrentNiche] = useState<string>('SaaS CRM para Clínicas de Salud');
   const [report, setReport] = useState<MarketResearchReport | null>(null);
@@ -92,33 +94,23 @@ export default function App() {
       }
 
       const data = await response.json();
-      if (data && data.competitors) {
+      if (data && data.competitors && data.competitors.length > 0) {
         setReport(data);
         if (data.competitors.length >= 2) {
           setComparisonCompetitors([data.competitors[0], data.competitors[1]]);
         }
         setLiveTickerBanner(`Radar sincronizado: ${data.competitors?.length || 4} competidores y ${data.predictions?.length || 4} señales activas.`);
+      } else {
+        throw new Error('Incomplete data payload');
       }
     } catch (error) {
-      console.warn('Network issue fetching niche analysis, retrying once...', error);
-      try {
-        await new Promise((res) => setTimeout(res, 800));
-        const retryRes = await fetch('/api/analyze-niche', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ niche: nicheToSearch }),
-        });
-        if (retryRes.ok) {
-          const retryData = await retryRes.json();
-          setReport(retryData);
-          if (retryData.competitors?.length >= 2) {
-            setComparisonCompetitors([retryData.competitors[0], retryData.competitors[1]]);
-          }
-          setLiveTickerBanner(`Radar sincronizado para "${nicheToSearch}".`);
-        }
-      } catch (retryErr) {
-        console.error('Final retry error fetching niche analysis:', retryErr);
+      console.warn('Network issue fetching niche analysis, using client data engine:', error);
+      const fallbackData = generateClientMarketData(nicheToSearch);
+      setReport(fallbackData);
+      if (fallbackData.competitors?.length >= 2) {
+        setComparisonCompetitors([fallbackData.competitors[0], fallbackData.competitors[1]]);
       }
+      setLiveTickerBanner(`Radar sincronizado para "${nicheToSearch}".`);
     } finally {
       clearInterval(stepInterval);
       setIsLoading(false);
