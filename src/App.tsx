@@ -24,7 +24,8 @@ import {
   Radio, 
   Sparkles, 
   MessageSquare,
-  Bot
+  Bot,
+  Radar
 } from 'lucide-react';
 
 import { generateClientMarketData } from './utils/fallbackGenerator';
@@ -523,66 +524,97 @@ export default function App() {
 
         {/* Initial Empty / Welcome State (Ready to Search) */}
         {!report && !isLoading && (
-          <div className="py-12 px-4 max-w-4xl mx-auto text-center space-y-8 animate-fadeIn">
+          <div className="py-10 px-4 max-w-5xl mx-auto text-center space-y-10 animate-fadeIn">
             
-            <div className="space-y-3">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono">
+            {/* Animated Radar Focal Node */}
+            <div className="relative mx-auto w-32 h-32 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full border border-sky-500/20 animate-ping opacity-30" />
+              <div className="absolute inset-2 rounded-full border border-indigo-500/30 animate-pulse" />
+              <div className="absolute inset-6 rounded-full border border-sky-400/40" />
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-sky-950 border border-sky-500/40 flex items-center justify-center shadow-xl shadow-sky-500/20">
+                <Radar className="w-8 h-8 text-sky-400 animate-pulse-slow" />
+              </div>
+            </div>
+
+            <div className="space-y-3.5 max-w-2xl mx-auto">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-slate-900/80 border border-sky-500/30 text-sky-300 text-xs font-mono shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>Radar en tiempo real listo para escanear</span>
+                <span>Radar Multi-API Listo para Escanear</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-bold text-zinc-100 tracking-tight">
-                Espionaje Competitivo, Anuncios & Oportunidades de Mercado
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                Espionaje Competitivo & Benchmark de Mercado
               </h2>
               
-              <p className="text-sm text-zinc-400 max-w-2xl mx-auto leading-relaxed font-normal">
-                Ingresa cualquier nicho o industria en la barra superior para activar la búsqueda profunda en Google SERP, biblioteca de anuncios de Meta y auditoría web en vivo.
+              <p className="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed font-normal">
+                Escribe cualquier industria o producto en la barra superior. Benchia consultará Google Search, extraerá páginas en vivo con Firecrawl y generará tu estrategia en segundos.
               </p>
             </div>
 
             {/* 4 Feature Value Pillars */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-left">
               
-              <div className="benchia-card p-4 space-y-2">
-                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 w-fit text-emerald-400 font-mono text-xs">
-                  01 • SERP
+              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group">
+                <div className="p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30 w-fit text-emerald-400 font-mono text-xs font-bold shadow-sm shadow-emerald-500/10 group-hover:scale-105 transition-transform">
+                  01 • SERP GOOGLE
                 </div>
-                <h4 className="text-xs font-semibold text-zinc-200">Google Search en Vivo</h4>
-                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                <h4 className="text-xs font-bold text-white tracking-tight">Google Search en Vivo</h4>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
                   Extracción de rankings orgánicos, volúmenes de búsqueda e intención de compra con Serper API.
                 </p>
               </div>
 
-              <div className="benchia-card p-4 space-y-2">
-                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 w-fit text-orange-400 font-mono text-xs">
-                  02 • Firecrawl
+              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group">
+                <div className="p-2 rounded-xl bg-amber-950/40 border border-amber-500/30 w-fit text-amber-400 font-mono text-xs font-bold shadow-sm shadow-amber-500/10 group-hover:scale-105 transition-transform">
+                  02 • FIRECRAWL
                 </div>
-                <h4 className="text-xs font-semibold text-zinc-200">Auditoría Web Profunda</h4>
-                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                <h4 className="text-xs font-bold text-white tracking-tight">Auditoría Web Profunda</h4>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
                   Scraping en tiempo real del sitio web de competidores para extraer precios, copy y ganchos.
                 </p>
               </div>
 
-              <div className="benchia-card p-4 space-y-2">
-                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 w-fit text-sky-400 font-mono text-xs">
-                  03 • Ads Radar
+              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group">
+                <div className="p-2 rounded-xl bg-sky-950/40 border border-sky-500/30 w-fit text-sky-400 font-mono text-xs font-bold shadow-sm shadow-sky-500/10 group-hover:scale-105 transition-transform">
+                  03 • ADS RADAR
                 </div>
-                <h4 className="text-xs font-semibold text-zinc-200">Meta & Google Ads</h4>
-                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                <h4 className="text-xs font-bold text-white tracking-tight">Meta & Google Ads</h4>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
                   Detección de creativos activos en Meta Ad Library y pujas de subasta en Google Ads.
                 </p>
               </div>
 
-              <div className="benchia-card p-4 space-y-2">
-                <div className="p-2 rounded bg-zinc-900 border border-zinc-800 w-fit text-purple-400 font-mono text-xs">
-                  04 • AI Playbook
+              <div className="benchia-card p-4.5 space-y-2.5 relative overflow-hidden group">
+                <div className="p-2 rounded-xl bg-purple-950/40 border border-purple-500/30 w-fit text-purple-400 font-mono text-xs font-bold shadow-sm shadow-purple-500/10 group-hover:scale-105 transition-transform">
+                  04 • AI PLAYBOOK
                 </div>
-                <h4 className="text-xs font-semibold text-zinc-200">Estrategia & Battlecards</h4>
-                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                <h4 className="text-xs font-bold text-white tracking-tight">Estrategia & Battlecards</h4>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
                   Comparativas Head-to-Head, identificación de océanos azules y generación de contra-campañas.
                 </p>
               </div>
 
+            </div>
+
+            {/* Quick-Launch Suggestions */}
+            <div className="pt-2">
+              <span className="text-xs text-slate-400 font-medium block mb-2.5">O prueba haciendo clic en una de estas sugerencias:</span>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {[
+                  'Agencias de Marketing Digital',
+                  'Software para Clínicas Dentales',
+                  'Distribuidora de Café de Especialidad',
+                  'E-commerce de Moda Sostenible'
+                ].map((sugg, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleSearchNiche(sugg)}
+                    className="px-3.5 py-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-500/40 text-slate-300 hover:text-white text-xs font-semibold transition-all cursor-pointer shadow-sm hover:scale-105"
+                  >
+                    ⚡ {sugg}
+                  </button>
+                ))}
+              </div>
             </div>
 
           </div>

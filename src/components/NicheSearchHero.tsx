@@ -72,56 +72,65 @@ export const NicheSearchHero: React.FC<NicheSearchHeroProps> = ({
   ];
 
   return (
-    <div className="benchia-card p-5 sm:p-6 mb-6">
-      <div className="max-w-4xl mx-auto">
+    <div className="benchia-card p-5 sm:p-7 mb-6 relative overflow-hidden">
+      
+      {/* Ambient background tech glow */}
+      <div className="absolute -top-24 -right-24 w-72 h-72 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto relative z-10">
         
         {/* Header Title & Subtitle */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
           <div>
-            <div className="flex items-center space-x-2">
-              <h1 className="text-xl sm:text-2xl font-bold text-zinc-100 tracking-tight">
-                Radar de Inteligencia Competitiva
+            <div className="flex items-center space-x-2.5">
+              <h1 className="text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-white via-slate-100 to-sky-200 bg-clip-text text-transparent tracking-tight">
+                Radar de Inteligencia & Benchmark
               </h1>
-              <span className="text-[11px] font-medium bg-zinc-800 text-zinc-300 border border-zinc-700 px-2 py-0.5 rounded">
-                Tiempo Real
+              <span className="text-[10px] font-mono font-bold bg-sky-950/60 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded-full flex items-center space-x-1 shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping mr-1" />
+                TIEMPO REAL
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-              Monitorea competidores, analiza campañas de Meta & Google Ads, y detecta oportunidades en cualquier nicho.
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+              Rastreo multi-canal con Serper (Google SERP), Firecrawl (Deep Web Scraping), Meta Ad Library y Gemini AI.
             </p>
           </div>
 
           <div className="flex items-center space-x-2 shrink-0">
             <button
               onClick={() => setShowAddCustom(!showAddCustom)}
-              className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 text-xs font-medium transition-colors cursor-pointer"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-semibold transition-all cursor-pointer shadow-sm"
             >
-              <PlusCircle className="w-3.5 h-3.5 text-zinc-400" />
+              <PlusCircle className="w-3.5 h-3.5 text-sky-400" />
               <span>Añadir Competidor</span>
             </button>
           </div>
         </div>
 
-        {/* Custom Competitor Quick Modal / Inset Form */}
+        {/* Custom Competitor Quick Inset Form */}
         {showAddCustom && (
-          <form onSubmit={handleCustomSubmit} className="mb-4 p-3.5 rounded-lg bg-zinc-900 border border-zinc-700/80 text-xs">
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-semibold text-zinc-200">Añadir competidor específico al análisis en curso</span>
+          <form onSubmit={handleCustomSubmit} className="mb-4 p-4 rounded-xl bg-slate-900/90 border border-sky-500/30 text-xs shadow-lg backdrop-blur-md">
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-bold text-slate-200 flex items-center space-x-1.5">
+                <Globe className="w-3.5 h-3.5 text-sky-400" />
+                <span>Incorporar competidor específico al análisis</span>
+              </span>
               <button 
                 type="button" 
                 onClick={() => setShowAddCustom(false)} 
-                className="text-zinc-500 hover:text-zinc-300 cursor-pointer"
+                className="text-slate-400 hover:text-white cursor-pointer text-sm"
               >
                 ✕
               </button>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
               <input
                 type="text"
                 value={customName}
                 onChange={(e) => setCustomName(e.target.value)}
                 placeholder="Nombre (ej: Acroflow Labs)"
-                className="px-3 py-1.5 rounded bg-zinc-950 border border-zinc-700 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
+                className="px-3.5 py-2 rounded-lg bg-slate-950/80 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors"
                 required
               />
               <input
@@ -129,13 +138,13 @@ export const NicheSearchHero: React.FC<NicheSearchHeroProps> = ({
                 value={customDomain}
                 onChange={(e) => setCustomDomain(e.target.value)}
                 placeholder="Dominio / Web (ej: acroflow.com)"
-                className="px-3 py-1.5 rounded bg-zinc-950 border border-zinc-700 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-zinc-500"
+                className="px-3.5 py-2 rounded-lg bg-slate-950/80 border border-slate-700 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500 transition-colors"
                 required
               />
             </div>
             <button
               type="submit"
-              className="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-zinc-950 font-semibold cursor-pointer"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
             >
               Incorporar al Radar
             </button>
@@ -145,24 +154,24 @@ export const NicheSearchHero: React.FC<NicheSearchHeroProps> = ({
         {/* Main Search Command Bar */}
         <form onSubmit={handleSubmit} className="relative mb-4">
           <div className="relative flex items-center">
-            <div className="absolute left-3.5 text-zinc-400 pointer-events-none">
-              <Search className="w-4 h-4" />
+            <div className="absolute left-4 text-sky-400 pointer-events-none">
+              <Search className="w-4.5 h-4.5" />
             </div>
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Ingresa un nicho de mercado (ej: SaaS CRM para Clínicas de Salud, Legaltech B2B, E-commerce Café...)"
+              placeholder="Ingresa cualquier nicho o industria (ej: agencias de marketing, software dental, distribuidora de cafe...)"
               disabled={isLoading}
-              className="w-full pl-10 pr-32 py-2.5 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-600 transition-all font-normal"
+              className="w-full pl-11 pr-36 py-3 rounded-xl bg-slate-950/90 border border-slate-700/90 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 transition-all font-medium shadow-inner"
             />
             <button
               type="submit"
               disabled={isLoading || !inputValue.trim()}
-              className="absolute right-1.5 top-1.5 bottom-1.5 px-4 rounded-md bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-xs flex items-center space-x-1 transition-all disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
+              className="absolute right-1.5 top-1.5 bottom-1.5 px-4 rounded-lg bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-white font-bold text-xs flex items-center space-x-1.5 shadow-md shadow-sky-500/20 transition-all disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed"
             >
               {isLoading ? (
-                <span>Escaneando...</span>
+                <span>Rastreando...</span>
               ) : (
                 <>
                   <span>Analizar</span>
@@ -175,8 +184,8 @@ export const NicheSearchHero: React.FC<NicheSearchHeroProps> = ({
 
         {/* Preset Chips */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] text-zinc-500 font-medium mr-1 flex items-center">
-            <Target className="w-3 h-3 mr-1 text-zinc-400" /> Nichos frecuentes:
+          <span className="text-[11px] text-slate-400 font-semibold mr-1 flex items-center">
+            <Target className="w-3 h-3 mr-1 text-sky-400" /> Ejemplos de prueba:
           </span>
           {PRESET_NICHES.map((niche, idx) => (
             <button
@@ -184,7 +193,7 @@ export const NicheSearchHero: React.FC<NicheSearchHeroProps> = ({
               type="button"
               disabled={isLoading}
               onClick={() => handleSelectPreset(niche)}
-              className="text-[11px] px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-zinc-100 border border-zinc-800 hover:border-zinc-700 transition-colors font-medium cursor-pointer disabled:opacity-50"
+              className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-900/70 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 hover:border-sky-500/40 transition-all font-medium cursor-pointer disabled:opacity-50"
             >
               {niche}
             </button>
@@ -193,27 +202,27 @@ export const NicheSearchHero: React.FC<NicheSearchHeroProps> = ({
 
         {/* Loading Pipeline State Indicator */}
         {isLoading && (
-          <div className="mt-4 p-3.5 rounded-lg bg-zinc-900 border border-zinc-700">
+          <div className="mt-4 p-4 rounded-xl bg-slate-950/90 border border-sky-500/30 shadow-lg">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center space-x-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
                 </span>
-                <span className="text-xs font-semibold text-zinc-200 font-mono">
-                  Escaneo en Curso (Paso {scanningStep} de 5)
+                <span className="text-xs font-bold text-sky-300 font-mono">
+                  Rastreo Multi-API en Curso (Paso {scanningStep} de 5)
                 </span>
               </div>
-              <span className="text-xs text-zinc-500 font-mono">{scanningStep * 20}%</span>
+              <span className="text-xs text-sky-400 font-mono font-bold">{scanningStep * 20}%</span>
             </div>
 
-            <p className="text-xs text-zinc-400 mb-2">
+            <p className="text-xs text-slate-300 mb-2.5 font-medium">
               {scanningStages[Math.min(scanningStep - 1, scanningStages.length - 1)]}
             </p>
 
-            <div className="w-full bg-zinc-950 h-1.5 rounded-full overflow-hidden border border-zinc-800">
+            <div className="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800 p-0.5">
               <div 
-                className="bg-emerald-500 h-full transition-all duration-300 ease-out"
+                className="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-400 h-full rounded-full transition-all duration-300 ease-out shadow-sm shadow-sky-400"
                 style={{ width: `${(scanningStep / 5) * 100}%` }}
               />
             </div>
@@ -222,15 +231,15 @@ export const NicheSearchHero: React.FC<NicheSearchHeroProps> = ({
 
         {/* Current Active Niche Summary Bar */}
         {!isLoading && currentNiche && (
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-zinc-800/80 text-xs text-zinc-400">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800/80 text-xs text-slate-400">
             <div className="flex items-center space-x-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span className="text-zinc-500 font-medium">Nicho auditado:</span>
-              <strong className="text-zinc-200 font-semibold">{currentNiche}</strong>
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-slate-400 font-medium">Nicho auditado:</span>
+              <strong className="text-white font-bold">{currentNiche}</strong>
             </div>
             {analyzedAt && (
-              <div className="flex items-center space-x-1.5 text-zinc-500 font-mono text-[11px]">
-                <Clock className="w-3 h-3" />
+              <div className="flex items-center space-x-1.5 text-slate-400 font-mono text-[11px]">
+                <Clock className="w-3 h-3 text-sky-400" />
                 <span>Actualizado: {new Date(analyzedAt).toLocaleTimeString()}</span>
               </div>
             )}
