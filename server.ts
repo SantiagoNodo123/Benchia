@@ -1200,7 +1200,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`NexusBench AI Server running on http://localhost:${PORT}`);
+    console.log(`Benchia Server running on http://localhost:${PORT}`);
   });
 }
 
