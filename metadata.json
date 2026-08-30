@@ -1,0 +1,7 @@
+{
+  "name": "NexusBench AI - Competitive Intelligence & Ad Radar",
+  "description": "Plataforma de benchmark de competidores en tiempo real impulsada por IA con análisis de anuncios en Google Ads & Meta Library, alertas de tendencias predictivas y dashboards interactivos de mercado.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
