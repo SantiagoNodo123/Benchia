@@ -23,7 +23,7 @@ interface RealtimeAlertsCenterProps {
 }
 
 export const RealtimeAlertsCenter: React.FC<RealtimeAlertsCenterProps> = ({
-  alerts,
+  alerts = [],
   niche,
   onGenerateCounterStrategy,
   onMarkAllAsRead,
@@ -31,7 +31,10 @@ export const RealtimeAlertsCenter: React.FC<RealtimeAlertsCenterProps> = ({
 }) => {
   const [filterType, setFilterType] = useState<string>('all');
 
-  const filteredAlerts = alerts.filter((a) => {
+  const safeAlerts = Array.isArray(alerts) ? alerts : [];
+
+  const filteredAlerts = safeAlerts.filter((a) => {
+    if (!a) return false;
     if (filterType !== 'all' && a.type !== filterType) return false;
     return true;
   });

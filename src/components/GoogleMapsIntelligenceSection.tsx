@@ -21,14 +21,16 @@ interface GoogleMapsIntelligenceSectionProps {
 
 export const GoogleMapsIntelligenceSection: React.FC<GoogleMapsIntelligenceSectionProps> = ({
   locations = [],
-  competitors,
+  competitors = [],
   niche,
 }) => {
-  const [selectedLocId, setSelectedLocId] = useState<string>(locations[0]?.id || 'loc-1');
+  const safeLocations = Array.isArray(locations) ? locations : [];
+  const [selectedLocId, setSelectedLocId] = useState<string>(safeLocations[0]?.id || 'loc-1');
   const [selectedCompetitorFilter, setSelectedCompetitorFilter] = useState<string>('all');
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>('all');
 
-  const filteredLocations = locations.filter((loc) => {
+  const filteredLocations = safeLocations.filter((loc) => {
+    if (!loc) return false;
     if (selectedCompetitorFilter !== 'all' && loc.competitorName !== selectedCompetitorFilter) {
       return false;
     }
@@ -38,9 +40,9 @@ export const GoogleMapsIntelligenceSection: React.FC<GoogleMapsIntelligenceSecti
     return true;
   });
 
-  const activeLocation = locations.find((l) => l.id === selectedLocId) || filteredLocations[0] || locations[0];
-  const competitorNames = Array.from(new Set(locations.map((l) => l.competitorName)));
-  const coverageTypes = Array.from(new Set(locations.map((l) => l.localCoverageType)));
+  const activeLocation = safeLocations.find((l) => l.id === selectedLocId) || filteredLocations[0] || safeLocations[0];
+  const competitorNames = Array.from(new Set(safeLocations.map((l) => l?.competitorName).filter(Boolean)));
+  const coverageTypes = Array.from(new Set(safeLocations.map((l) => l?.localCoverageType).filter(Boolean)));
 
   return (
     <section id="google-maps-intelligence" className="space-y-4 mb-10">

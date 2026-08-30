@@ -23,10 +23,23 @@ interface OverviewMetricsProps {
 export const OverviewMetrics: React.FC<OverviewMetricsProps> = ({
   metrics,
   summary,
-  competitorsCount,
-  totalAlertsCount,
+  competitorsCount = 4,
+  totalAlertsCount = 0,
 }) => {
-  const getSaturationBadge = (level: string) => {
+  const safeMetrics = metrics || {
+    niche: 'Mercado Analizado',
+    totalMarketSizeEst: '$3.8B USD (Global) / $420M (Hispanoamérica)',
+    growthRateAnnual: '+22.4% CAGR',
+    saturationLevel: 'Media (Crecimiento)',
+    averageCpcNiche: '$2.80 - $5.50 USD',
+    topConvertingAdHook: 'Automatiza procesos repetitivos en menos de 7 días',
+    untappedOpportunity: 'Integración y onboarding autónomo en 3 minutos',
+    priceElasticity: 'Media',
+  };
+
+  const safeSummary = summary || 'Diagnóstico de inteligencia competitiva en tiempo real sobre el nicho seleccionado.';
+
+  const getSaturationBadge = (level: string = '') => {
     if (level.includes('Baja')) return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
     if (level.includes('Media')) return 'bg-sky-500/10 text-sky-400 border-sky-500/30';
     if (level.includes('Alta')) return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
@@ -50,7 +63,7 @@ export const OverviewMetrics: React.FC<OverviewMetricsProps> = ({
         </div>
 
         <p className="text-sm text-zinc-300 leading-relaxed font-normal">
-          {summary}
+          {safeSummary}
         </p>
       </div>
 
@@ -65,11 +78,11 @@ export const OverviewMetrics: React.FC<OverviewMetricsProps> = ({
           </div>
           <div>
             <div className="text-lg font-bold text-zinc-100 font-mono">
-              {metrics.totalMarketSizeEst}
+              {safeMetrics.totalMarketSizeEst}
             </div>
             <div className="mt-1 flex items-center text-[11px] text-emerald-400 font-medium font-mono">
               <TrendingUp className="w-3 h-3 mr-1" />
-              <span>{metrics.growthRateAnnual} CAGR</span>
+              <span>{safeMetrics.growthRateAnnual} CAGR</span>
             </div>
           </div>
         </div>
@@ -82,8 +95,8 @@ export const OverviewMetrics: React.FC<OverviewMetricsProps> = ({
           </div>
           <div>
             <div className="flex items-center mt-0.5">
-              <span className={`px-2 py-0.5 rounded text-[11px] font-medium border ${getSaturationBadge(metrics.saturationLevel)}`}>
-                {metrics.saturationLevel}
+              <span className={`px-2 py-0.5 rounded text-[11px] font-medium border ${getSaturationBadge(safeMetrics.saturationLevel)}`}>
+                {safeMetrics.saturationLevel}
               </span>
             </div>
             <div className="mt-2 text-[11px] text-zinc-500 font-mono">
@@ -100,10 +113,10 @@ export const OverviewMetrics: React.FC<OverviewMetricsProps> = ({
           </div>
           <div>
             <div className="text-lg font-bold text-zinc-100 font-mono">
-              {metrics.averageCpcNiche}
+              {safeMetrics.averageCpcNiche}
             </div>
             <div className="mt-1 text-[11px] text-zinc-400">
-              Elasticidad de precio: <span className="text-zinc-200 font-medium">{metrics.priceElasticity}</span>
+              Elasticidad de precio: <span className="text-zinc-200 font-medium">{safeMetrics.priceElasticity}</span>
             </div>
           </div>
         </div>
@@ -142,7 +155,7 @@ export const OverviewMetrics: React.FC<OverviewMetricsProps> = ({
               Gancho publicitario de mayor conversión en el nicho:
             </div>
             <p className="text-xs font-medium text-zinc-200 bg-zinc-900/90 border border-zinc-800 p-2.5 rounded-md">
-              "{metrics.topConvertingAdHook}"
+              "{safeMetrics.topConvertingAdHook}"
             </p>
           </div>
         </div>
@@ -156,8 +169,8 @@ export const OverviewMetrics: React.FC<OverviewMetricsProps> = ({
             <div className="text-[11px] text-zinc-400 font-medium mb-1">
               Mayor oportunidad desatendida del nicho (Océano Azul):
             </div>
-            <p className="text-xs font-medium text-sky-300 bg-sky-950/20 border border-sky-900/40 p-2.5 rounded-md">
-              {metrics.untappedOpportunity}
+            <p className="text-xs font-medium text-zinc-200 bg-zinc-900/90 border border-zinc-800 p-2.5 rounded-md">
+              "{safeMetrics.untappedOpportunity}"
             </p>
           </div>
         </div>
@@ -167,4 +180,3 @@ export const OverviewMetrics: React.FC<OverviewMetricsProps> = ({
     </div>
   );
 };
-

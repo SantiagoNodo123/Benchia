@@ -17,7 +17,7 @@ interface PredictiveRadarSectionProps {
 }
 
 export const PredictiveRadarSection: React.FC<PredictiveRadarSectionProps> = ({
-  predictions,
+  predictions = [],
   niche,
   onExecuteActionPlan,
 }) => {
@@ -25,12 +25,15 @@ export const PredictiveRadarSection: React.FC<PredictiveRadarSectionProps> = ({
 
   const categories = ['all', 'Innovación Tecnológica', 'Canal de Adquisición', 'Guerra de Precios', 'Comportamiento de Usuario'];
 
-  const filtered = predictions.filter((p) => {
+  const safePredictions = Array.isArray(predictions) ? predictions : [];
+
+  const filtered = safePredictions.filter((p) => {
+    if (!p) return false;
     if (selectedCategory !== 'all' && p.category !== selectedCategory) return false;
     return true;
   });
 
-  const getImpactBadge = (impact: string) => {
+  const getImpactBadge = (impact: string = '') => {
     if (impact === 'Crítico') return 'bg-rose-500/10 text-rose-400 border-rose-500/30';
     if (impact === 'Alto') return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
     return 'bg-sky-500/10 text-sky-400 border-sky-500/30';

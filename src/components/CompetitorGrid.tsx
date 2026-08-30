@@ -23,7 +23,7 @@ interface CompetitorGridProps {
 }
 
 export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
-  competitors,
+  competitors = [],
   niche,
   onGenerateCounterStrategy,
   onCompareCompetitors,
@@ -31,6 +31,8 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'marketShare' | 'adVelocity' | 'traffic'>('marketShare');
   const [selectedForComparison, setSelectedForComparison] = useState<string[]>([]);
+
+  const safeCompetitors = Array.isArray(competitors) ? competitors : [];
 
   const toggleSelectForCompare = (id: string) => {
     if (selectedForComparison.includes(id)) {
@@ -46,24 +48,24 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
 
   const handleTriggerCompare = () => {
     if (selectedForComparison.length === 2 && onCompareCompetitors) {
-      const compA = competitors.find(c => c.id === selectedForComparison[0]);
-      const compB = competitors.find(c => c.id === selectedForComparison[1]);
+      const compA = safeCompetitors.find(c => c.id === selectedForComparison[0]);
+      const compB = safeCompetitors.find(c => c.id === selectedForComparison[1]);
       if (compA && compB) {
         onCompareCompetitors(compA, compB);
       }
     }
   };
 
-  const filtered = competitors
+  const filtered = safeCompetitors
     .filter((c) => 
-      c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.positioning.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.tagline.toLowerCase().includes(searchTerm.toLowerCase())
+      c?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c?.positioning?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      c?.tagline?.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
-      if (sortBy === 'marketShare') return b.marketSharePercent - a.marketSharePercent;
-      if (sortBy === 'adVelocity') return b.adVelocityScore - a.adVelocityScore;
-      return parseInt(b.monthlyTrafficEst.replace(/\D/g, '') || '0') - parseInt(a.monthlyTrafficEst.replace(/\D/g, '') || '0');
+      if (sortBy === 'marketShare') return (b.marketSharePercent || 0) - (a.marketSharePercent || 0);
+      if (sortBy === 'adVelocity') return (b.adVelocityScore || 0) - (a.adVelocityScore || 0);
+      return parseInt((b.monthlyTrafficEst || '0').replace(/\D/g, '') || '0') - parseInt((a.monthlyTrafficEst || '0').replace(/\D/g, '') || '0');
     });
 
   return (

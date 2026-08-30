@@ -24,10 +24,13 @@ interface BlueOceanMatrixProps {
 }
 
 export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
-  unclaimedBlueOceans,
-  strategicPlaybook,
+  unclaimedBlueOceans = [],
+  strategicPlaybook = [],
   niche,
 }) => {
+  const safeOceans = Array.isArray(unclaimedBlueOceans) ? unclaimedBlueOceans : [];
+  const safePlaybook = Array.isArray(strategicPlaybook) ? strategicPlaybook : [];
+
   return (
     <section className="space-y-6 mb-10">
       
@@ -50,7 +53,7 @@ export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {unclaimedBlueOceans.map((ocean, idx) => (
+          {safeOceans.map((ocean, idx) => (
             <div
               key={idx}
               className="benchia-card benchia-card-hover p-4 flex flex-col justify-between"
@@ -103,7 +106,7 @@ export const BlueOceanMatrix: React.FC<BlueOceanMatrixProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {strategicPlaybook.map((play, idx) => (
+          {safePlaybook.map((play, idx) => (
             <div
               key={idx}
               className="p-3.5 rounded bg-zinc-950 border border-zinc-800 flex flex-col justify-between space-y-2"
