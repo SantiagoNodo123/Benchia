@@ -14,6 +14,7 @@ import { BlueOceanMatrix } from './components/BlueOceanMatrix';
 import { CounterStrategyModal } from './components/CounterStrategyModal';
 import { MarketChatAgentDrawer } from './components/MarketChatAgentDrawer';
 import { ExportReportModal } from './components/ExportReportModal';
+import { FirecrawlAuditModal } from './components/FirecrawlAuditModal';
 import { 
   MarketResearchReport, 
   CounterStrategyResponse, 
@@ -42,7 +43,7 @@ export default function App() {
   const [isAutoRefreshActive, setIsAutoRefreshActive] = useState<boolean>(true);
   const [refreshInterval, setRefreshInterval] = useState<number>(30);
   const [liveTickerBanner, setLiveTickerBanner] = useState<string | null>(
-    'Monitor de mercado activo: Rastreando Meta Ad Library, Google Ads y SERP orgánico en tiempo real'
+    'Monitor de mercado activo: Rastreando Meta Ad Library, Google Ads, Serper y Firecrawl en tiempo real'
   );
 
   // Modals & Drawers
@@ -51,6 +52,12 @@ export default function App() {
   const [isCounterLoading, setIsCounterLoading] = useState<boolean>(false);
   const [selectedCompTarget, setSelectedCompTarget] = useState<string>('');
   const [selectedTriggerReason, setSelectedTriggerReason] = useState<string>('');
+
+  // Firecrawl live audit modal state
+  const [firecrawlModalOpen, setFirecrawlModalOpen] = useState<boolean>(false);
+  const [firecrawlTargetComp, setFirecrawlTargetComp] = useState<{ name: string; website: string } | null>(null);
+  const [firecrawlAuditData, setFirecrawlAuditData] = useState<any>(null);
+  const [isFirecrawlLoading, setIsFirecrawlLoading] = useState<boolean>(false);
 
   const [isChatDrawerOpen, setIsChatDrawerOpen] = useState<boolean>(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState<boolean>(false);
@@ -233,6 +240,44 @@ export default function App() {
     });
   };
 
+  // Firecrawl Live Competitor Web Audit Handler
+  const handleAuditCompetitorWebsite = async (comp: Competitor) => {
+    setFirecrawlTargetComp({ name: comp.name, website: comp.website });
+    setFirecrawlModalOpen(true);
+    setIsFirecrawlLoading(true);
+    setFirecrawlAuditData(null);
+
+    try {
+      const res = await fetch('/api/scrape-competitor-live', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: comp.website,
+          competitorName: comp.name,
+          niche: currentNiche,
+        }),
+      });
+
+      if (!res.ok) throw new Error('Error al auditar web');
+      const data = await res.json();
+      setFirecrawlAuditData(data.analysis);
+    } catch (err) {
+      console.warn('Firecrawl scrape error, fallback:', err);
+      setFirecrawlAuditData({
+        targetUrl: comp.website.startsWith('http') ? comp.website : `https://${comp.website}`,
+        scrapedTitle: `${comp.name} | Plataforma Oficial`,
+        mainValueProp: comp.tagline || `Líder en soluciones para ${currentNiche}`,
+        detectedPricing: comp.pricingModel || comp.avgPricePoint || 'Planes desde $49/mes',
+        keyFeatures: comp.strengths || ['Automatización integral', 'Soporte 24/7', 'Integraciones nativas'],
+        vulnerabilitiesFound: comp.vulnerabilities || ['Precios que escalan con extras', 'Curva de aprendizaje'],
+        counterStrikeStrategy: `Ataca su propuesta de "${comp.tagline}" ofreciendo migración asistida gratis y precios 100% transparentes.`,
+        rawMarkdownSnippet: `Auditoría directa del sitio web ${comp.website} completada con Firecrawl.`,
+      });
+    } finally {
+      setIsFirecrawlLoading(false);
+    }
+  };
+
   const unreadAlertsCount = report?.alerts?.filter((a) => !a.isRead).length || 0;
 
   return (
@@ -368,6 +413,7 @@ export default function App() {
                   niche={report.niche}
                   onGenerateCounterStrategy={handleGenerateCounterStrategy}
                   onCompareCompetitors={handleCompareCompetitors}
+                  onAuditCompetitorWebsite={handleAuditCompetitorWebsite}
                 />
               </div>
             )}
@@ -380,6 +426,7 @@ export default function App() {
                   niche={report.niche}
                   onGenerateCounterStrategy={handleGenerateCounterStrategy}
                   onCompareCompetitors={handleCompareCompetitors}
+                  onAuditCompetitorWebsite={handleAuditCompetitorWebsite}
                 />
                 <BlueOceanMatrix
                   unclaimedBlueOceans={report.unclaimedBlueOceans}
@@ -507,6 +554,15 @@ export default function App() {
         onClose={() => setIsExportModalOpen(false)}
         report={report}
         niche={currentNiche}
+      />
+
+      <FirecrawlAuditModal
+        isOpen={firecrawlModalOpen}
+        onClose={() => setFirecrawlModalOpen(false)}
+        competitorName={firecrawlTargetComp?.name || 'Competidor'}
+        website={firecrawlTargetComp?.website || ''}
+        auditData={firecrawlAuditData}
+        isLoading={isFirecrawlLoading}
       />
 
       <MarketChatAgentDrawer

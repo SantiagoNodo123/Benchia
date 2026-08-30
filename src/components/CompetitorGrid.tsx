@@ -11,7 +11,8 @@ import {
   Search, 
   Sparkles,
   ArrowRightLeft,
-  Check
+  Check,
+  Flame
 } from 'lucide-react';
 import { Competitor } from '../types';
 
@@ -20,6 +21,7 @@ interface CompetitorGridProps {
   niche: string;
   onGenerateCounterStrategy: (competitorName: string, recentMove: string) => void;
   onCompareCompetitors?: (compA: Competitor, compB: Competitor) => void;
+  onAuditCompetitorWebsite?: (comp: Competitor) => void;
 }
 
 export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
@@ -27,6 +29,7 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
   niche,
   onGenerateCounterStrategy,
   onCompareCompetitors,
+  onAuditCompetitorWebsite,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'marketShare' | 'adVelocity' | 'traffic'>('marketShare');
@@ -287,17 +290,28 @@ export const CompetitorGrid: React.FC<CompetitorGridProps> = ({
                   rel="noopener noreferrer"
                   className="text-zinc-400 hover:text-zinc-200 flex items-center space-x-1 font-medium transition-colors"
                 >
-                  <span>Ver en Meta Ad Library</span>
+                  <span>Meta Library</span>
                   <ExternalLink className="w-3 h-3 text-zinc-500" />
                 </a>
 
-                <button
-                  onClick={() => onGenerateCounterStrategy(comp.name, comp.recentStrategicMove)}
-                  className="px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-medium text-xs flex items-center space-x-1.5 border border-zinc-700 transition-colors cursor-pointer"
-                >
-                  <Zap className="w-3 h-3 text-amber-400" />
-                  <span>Generar Contra-Campaña</span>
-                </button>
+                {/* Action Buttons */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => onAuditCompetitorWebsite?.(comp)}
+                    className="px-2.5 py-1.5 rounded bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 font-medium text-xs flex items-center space-x-1.5 border border-orange-500/30 transition-colors cursor-pointer"
+                  >
+                    <Flame className="w-3.5 h-3.5 text-orange-400" />
+                    <span>Auditar Web (Firecrawl)</span>
+                  </button>
+
+                  <button
+                    onClick={() => onGenerateCounterStrategy(comp.name, comp.recentStrategicMove)}
+                    className="px-3 py-1.5 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-medium text-xs flex items-center space-x-1.5 border border-zinc-700 transition-colors cursor-pointer"
+                  >
+                    <Zap className="w-3 h-3 text-amber-400" />
+                    <span>Contra-Campaña</span>
+                  </button>
+                </div>
               </div>
 
             </div>
