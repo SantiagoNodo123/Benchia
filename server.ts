@@ -1234,7 +1234,7 @@ app.post('/api/google-maps-radar', async (req, res) => {
 
 // Vite middleware setup
 async function startServer() {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
@@ -1253,4 +1253,10 @@ async function startServer() {
   });
 }
 
-startServer();
+// Only start standalone server if not running inside Vercel serverless environment
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
+  startServer();
+}
+
+export default app;
+
