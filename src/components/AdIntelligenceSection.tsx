@@ -24,8 +24,8 @@ interface AdIntelligenceSectionProps {
 }
 
 export const AdIntelligenceSection: React.FC<AdIntelligenceSectionProps> = ({
-  googleAds,
-  metaAds,
+  googleAds = [],
+  metaAds = [],
   niche,
   onGenerateCounterForAd,
 }) => {
@@ -33,15 +33,25 @@ export const AdIntelligenceSection: React.FC<AdIntelligenceSectionProps> = ({
   const [selectedFormat, setSelectedFormat] = useState<string>('all');
   const [filterCompetitor, setFilterCompetitor] = useState<string>('all');
 
-  const competitorsList = Array.from(new Set([...metaAds.map(m => m.competitorName), ...googleAds.map(g => g.competitorName)]));
+  const safeMetaAds = Array.isArray(metaAds) ? metaAds : [];
+  const safeGoogleAds = Array.isArray(googleAds) ? googleAds : [];
 
-  const filteredMetaAds = metaAds.filter((ad) => {
+  const competitorsList = Array.from(
+    new Set([
+      ...safeMetaAds.map((m) => m?.competitorName).filter(Boolean),
+      ...safeGoogleAds.map((g) => g?.competitorName).filter(Boolean),
+    ])
+  );
+
+  const filteredMetaAds = safeMetaAds.filter((ad) => {
+    if (!ad) return false;
     if (selectedFormat !== 'all' && ad.format !== selectedFormat) return false;
     if (filterCompetitor !== 'all' && ad.competitorName !== filterCompetitor) return false;
     return true;
   });
 
-  const filteredGoogleAds = googleAds.filter((ad) => {
+  const filteredGoogleAds = safeGoogleAds.filter((ad) => {
+    if (!ad) return false;
     if (filterCompetitor !== 'all' && ad.competitorName !== filterCompetitor) return false;
     return true;
   });
@@ -75,7 +85,7 @@ export const AdIntelligenceSection: React.FC<AdIntelligenceSectionProps> = ({
                 : 'text-zinc-400 hover:text-zinc-200'
             }`}
           >
-            Meta Ad Library ({metaAds.length})
+            Meta Ad Library ({safeMetaAds.length})
           </button>
 
           <button
@@ -86,7 +96,7 @@ export const AdIntelligenceSection: React.FC<AdIntelligenceSectionProps> = ({
                 : 'text-zinc-400 hover:text-zinc-200'
             }`}
           >
-            Google Ads ({googleAds.length})
+            Google Ads ({safeGoogleAds.length})
           </button>
 
           <button

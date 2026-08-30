@@ -451,7 +451,16 @@ export default function App() {
               </div>
             )}
 
-            {/* 9. ALERTS TAB */}
+            {/* 9. BLUE OCEAN TAB */}
+            {activeTab === 'blueocean' && (
+              <BlueOceanMatrix
+                unclaimedBlueOceans={report.unclaimedBlueOceans}
+                strategicPlaybook={report.strategicPlaybook}
+                niche={report.niche}
+              />
+            )}
+
+            {/* 10. ALERTS TAB */}
             {activeTab === 'alerts' && (
               <RealtimeAlertsCenter
                 alerts={report.alerts}
