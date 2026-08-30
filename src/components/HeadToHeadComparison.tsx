@@ -16,14 +16,18 @@ interface HeadToHeadComparisonProps {
   competitors: Competitor[];
   niche: string;
   onGenerateCounterStrategy: (competitorName: string, recentMove: string) => void;
+  initialCompAId?: string;
+  initialCompBId?: string;
 }
 
 export const HeadToHeadComparison: React.FC<HeadToHeadComparisonProps> = ({
   competitors,
   niche,
   onGenerateCounterStrategy,
+  initialCompAId,
+  initialCompBId,
 }) => {
-  if (competitors.length < 2) {
+  if (!competitors || competitors.length < 2) {
     return (
       <div className="benchia-card p-8 text-center text-zinc-400">
         Se requieren al menos 2 competidores para realizar una comparación cara a cara.
@@ -31,8 +35,8 @@ export const HeadToHeadComparison: React.FC<HeadToHeadComparisonProps> = ({
     );
   }
 
-  const [compAId, setCompAId] = useState<string>(competitors[0]?.id || '');
-  const [compBId, setCompBId] = useState<string>(competitors[1]?.id || '');
+  const [compAId, setCompAId] = useState<string>(initialCompAId || competitors[0]?.id || '');
+  const [compBId, setCompBId] = useState<string>(initialCompBId || competitors[1]?.id || '');
 
   const compA = competitors.find(c => c.id === compAId) || competitors[0];
   const compB = competitors.find(c => c.id === compBId) || competitors[1];
@@ -164,7 +168,7 @@ export const HeadToHeadComparison: React.FC<HeadToHeadComparisonProps> = ({
                 <span>Fortalezas Clave</span>
               </div>
               <ul className="space-y-1 text-zinc-300 text-[11px]">
-                {compA.strengths.map((s, i) => (
+                {(compA.strengths || []).map((s, i) => (
                   <li key={i} className="flex items-start">
                     <span className="text-emerald-500 mr-1.5">•</span>
                     <span>{s}</span>
@@ -180,7 +184,7 @@ export const HeadToHeadComparison: React.FC<HeadToHeadComparisonProps> = ({
                 <span>Vulnerabilidades Explotables</span>
               </div>
               <ul className="space-y-1 text-zinc-300 text-[11px]">
-                {compA.vulnerabilities.map((v, i) => (
+                {(compA.vulnerabilities || []).map((v, i) => (
                   <li key={i} className="flex items-start">
                     <span className="text-rose-400 mr-1.5">•</span>
                     <span>{v}</span>
@@ -193,7 +197,7 @@ export const HeadToHeadComparison: React.FC<HeadToHeadComparisonProps> = ({
             <div>
               <span className="text-[10px] uppercase font-mono text-zinc-500 block mb-1">Stack Tecnológico:</span>
               <div className="flex flex-wrap gap-1">
-                {compA.techStack.map((t, i) => (
+                {(compA.techStack || []).map((t, i) => (
                   <span key={i} className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-900 border border-zinc-800 font-mono text-zinc-400">
                     {t}
                   </span>
@@ -278,7 +282,7 @@ export const HeadToHeadComparison: React.FC<HeadToHeadComparisonProps> = ({
                 <span>Fortalezas Clave</span>
               </div>
               <ul className="space-y-1 text-zinc-300 text-[11px]">
-                {compB.strengths.map((s, i) => (
+                {(compB.strengths || []).map((s, i) => (
                   <li key={i} className="flex items-start">
                     <span className="text-emerald-500 mr-1.5">•</span>
                     <span>{s}</span>
@@ -294,7 +298,7 @@ export const HeadToHeadComparison: React.FC<HeadToHeadComparisonProps> = ({
                 <span>Vulnerabilidades Explotables</span>
               </div>
               <ul className="space-y-1 text-zinc-300 text-[11px]">
-                {compB.vulnerabilities.map((v, i) => (
+                {(compB.vulnerabilities || []).map((v, i) => (
                   <li key={i} className="flex items-start">
                     <span className="text-rose-400 mr-1.5">•</span>
                     <span>{v}</span>
@@ -307,7 +311,7 @@ export const HeadToHeadComparison: React.FC<HeadToHeadComparisonProps> = ({
             <div>
               <span className="text-[10px] uppercase font-mono text-zinc-500 block mb-1">Stack Tecnológico:</span>
               <div className="flex flex-wrap gap-1">
-                {compB.techStack.map((t, i) => (
+                {(compB.techStack || []).map((t, i) => (
                   <span key={i} className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-900 border border-zinc-800 font-mono text-zinc-400">
                     {t}
                   </span>

@@ -295,8 +295,8 @@ export default function App() {
             {activeTab === 'overview' && (
               <div className="space-y-10">
                 <OverviewMetrics
-                  metrics={report.overviewMetrics}
-                  summary={report.marketSummary}
+                  metrics={report.metrics}
+                  summary={report.summary}
                   competitorsCount={report.competitors.length}
                   totalAlertsCount={report.alerts.length}
                 />
@@ -364,14 +364,13 @@ export default function App() {
             {/* 2. HEAD-TO-HEAD COMPARISON TAB */}
             {activeTab === 'comparison' && (
               <div className="space-y-6">
-                {comparisonCompetitors && (
-                  <HeadToHeadComparison
-                    competitorA={comparisonCompetitors[0]}
-                    competitorB={comparisonCompetitors[1]}
-                    niche={report.niche}
-                    onGenerateCounterStrategy={handleGenerateCounterStrategy}
-                  />
-                )}
+                <HeadToHeadComparison
+                  competitors={report.competitors}
+                  niche={report.niche}
+                  onGenerateCounterStrategy={handleGenerateCounterStrategy}
+                  initialCompAId={comparisonCompetitors ? comparisonCompetitors[0]?.id : undefined}
+                  initialCompBId={comparisonCompetitors ? comparisonCompetitors[1]?.id : undefined}
+                />
                 <CompetitorGrid
                   competitors={report.competitors}
                   niche={report.niche}
@@ -444,8 +443,8 @@ export default function App() {
                   niche={report.niche}
                 />
                 <OverviewMetrics
-                  metrics={report.overviewMetrics}
-                  summary={report.marketSummary}
+                  metrics={report.metrics}
+                  summary={report.summary}
                   competitorsCount={report.competitors.length}
                   totalAlertsCount={report.alerts.length}
                 />
