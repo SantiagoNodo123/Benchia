@@ -2,7 +2,6 @@ import express from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
 import { GoogleGenAI, Type } from '@google/genai';
-import { createServer as createViteServer } from 'vite';
 
 dotenv.config();
 
@@ -1346,6 +1345,7 @@ Genera un reporte de inteligencia de espionaje en JSON con esta estructura exact
 // Vite middleware setup
 async function startServer() {
   if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
