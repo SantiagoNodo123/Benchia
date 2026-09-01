@@ -26,40 +26,78 @@ function getGenAI(): GoogleGenAI | null {
   return genAIClient;
 }
 
-// Resilient Gemini generator with automatic model fallback & retry for 503 / high demand spikes
+// Resilient Gemini REST generator with automatic model fallback & JSON cleaning
 async function generateWithModelFallback(
-  ai: GoogleGenAI,
+  _ai: GoogleGenAI | null,
   params: {
     contents: string;
     systemInstruction?: string;
     responseMimeType?: string;
     temperature?: number;
   },
-  candidateModels: string[] = ['gemini-3.7-flash', 'gemini-3.1-flash-lite', 'gemini-flash-latest']
+  candidateModels: string[] = ['gemini-3.1-flash-lite', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.7-flash']
 ): Promise<string> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error('GEMINI_API_KEY no está configurada.');
+  }
+
   let lastError: any = null;
   for (const model of candidateModels) {
     try {
-      const response = await ai.models.generateContent({
-        model,
-        contents: params.contents,
-        config: {
-          ...(params.systemInstruction ? { systemInstruction: params.systemInstruction } : {}),
-          responseMimeType: params.responseMimeType || 'application/json',
-          temperature: params.temperature ?? 0.6,
-        },
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const payload: any = {
+        contents: [
+          {
+            parts: [{ text: params.contents }]
+          }
+        ],
+        generationConfig: {
+          temperature: params.temperature ?? 0.4,
+        }
+      };
+
+      if (params.systemInstruction) {
+        payload.systemInstruction = {
+          parts: [{ text: params.systemInstruction }]
+        };
+      }
+
+      if (params.responseMimeType) {
+        payload.generationConfig.responseMimeType = params.responseMimeType;
+      }
+
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
-      if (response && response.text) {
-        return response.text;
+
+      const data: any = await res.json();
+
+      if (res.ok && data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+        let rawText = data.candidates[0].content.parts[0].text.trim();
+        // Remove markdown wrappers if model enclosed in ```json ... ```
+        if (rawText.startsWith('```json')) {
+          rawText = rawText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+        } else if (rawText.startsWith('```')) {
+          rawText = rawText.replace(/^```\s*/, '').replace(/\s*```$/, '');
+        }
+        console.log(`[Nodo AI Engine] Successfully generated real market intelligence with model '${model}'`);
+        return rawText;
+      } else {
+        const errMsg = data?.error?.message || `HTTP ${res.status}`;
+        console.warn(`[Gemini Model '${model}'] Notice: ${errMsg}`);
+        lastError = new Error(errMsg);
       }
     } catch (err: any) {
       lastError = err;
-      console.warn(`[Gemini API Info] Model '${model}' returned notice:`, err?.status || err?.message || err);
-      // Brief delay before trying next model
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      console.warn(`[Gemini Exception '${model}']:`, err?.message || err);
     }
+    // Small delay between fallback attempts
+    await new Promise((resolve) => setTimeout(resolve, 150));
   }
-  throw lastError || new Error('All candidate Gemini models failed.');
+  throw lastError || new Error('Todos los modelos de Gemini fallaron.');
 }
 
 // Dynamic fallback generator in case AI model needs backup or network delays
@@ -573,7 +611,7 @@ Responde ÚNICAMENTE con el objeto JSON puro sin envoltorios markdown, sin comil
         contents: prompt,
         responseMimeType: 'application/json',
         temperature: 0.6,
-      }, ['gemini-3.7-flash', 'gemini-3.1-flash-lite', 'gemini-flash-latest']);
+      }, ['gemini-3.1-flash-lite', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.7-flash']);
     } catch (genErr) {
       console.warn('Gemini generateContent encountered model issue, reverting to instant tailored fallback:', genErr);
       return res.json(getFallbackData(niche));
@@ -664,7 +702,7 @@ Responde exclusivamente con el JSON sin markdown ni explicaciones adicionales.`;
       contents: prompt,
       responseMimeType: 'application/json',
       temperature: 0.6,
-    }, ['gemini-3.7-flash', 'gemini-3.1-flash-lite', 'gemini-flash-latest']);
+    }, ['gemini-3.1-flash-lite', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.7-flash']);
 
     const parsed = JSON.parse(text || '{}');
     return res.json({ ...defaultCounter, ...parsed });
@@ -712,7 +750,7 @@ Responde en formato JSON con:
       systemInstruction: systemPrompt,
       responseMimeType: 'application/json',
       temperature: 0.6,
-    }, ['gemini-3.7-flash', 'gemini-3.1-flash-lite', 'gemini-flash-latest']);
+    }, ['gemini-3.1-flash-lite', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.7-flash']);
 
     const parsed = JSON.parse(text || '{}');
     return res.json(parsed);
